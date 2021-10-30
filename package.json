@@ -1,0 +1,16 @@
+{
+  "name": "InteractiveBreathing",
+  "version": "0.0.1",
+  "description": "https://www.wimhofmethod.com/",
+  "main": "./index.html",
+  "scripts": {
+    "fix": "standard --fix",
+    "serve": "live-server --port=4200 --host=localhost"
+  },
+  "author": "weedshaker@gmail.com",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "devDependencies": {
+    "live-server": "*",
+    "standard": "*"
+  }
+}

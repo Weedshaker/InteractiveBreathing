@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Interactive Breathing - https://www.wimhofmethod.com/">
+    <meta name="keywords" content="Interactive, Breathing">
+    <meta name="author" content="Weedshaker">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="msapplication-TileColor" content="#0d3b68">
+    <meta name="theme-color" content="#0d3b68">
+    <title>Interactive Breathing</title>
+</head>
+<body>
+  <c-router mode=hash routes="[
+    {
+      'name': 'tutorial-one',
+      'path': '../../components/pages/InteractiveBreathing.js',
+      'regExp': '/^#\/$/'
+    }
+  ]"></c-router>
+  <script rel=preload type=module>
+    import('./event-driven-web-components-router/src/Router.js').then(module => {
+      if (!customElements.get('c-router')) customElements.define('c-router', module.default)
+    })
+    self.Environment = {
+      mobileBreakpoint: '600px'
+    }
+  </script>
+  <style>
+    html {
+      --background-color: #f9e5b0;
+      --theme-color: #0d3b68;
+      background-color: var(--background-color);
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+    }
+  </style>
+</body>
+</html>
