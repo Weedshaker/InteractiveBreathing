@@ -1,0 +1,6 @@
+[submodule "event-driven-web-components-prototypes"]
+	path = event-driven-web-components-prototypes
+	url = https://github.com/Weedshaker/event-driven-web-components-prototypes.git
+[submodule "event-driven-web-components-router"]
+	path = event-driven-web-components-router
+	url = https://github.com/Weedshaker/event-driven-web-components-router.git
