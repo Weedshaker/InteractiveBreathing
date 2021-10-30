@@ -15,7 +15,7 @@
 <body>
   <c-router mode=hash routes="[
     {
-      'name': 'tutorial-one',
+      'name': 'interactive-breathing',
       'path': '../../components/pages/InteractiveBreathing.js',
       'regExp': '/^#\/$/'
     }
@@ -29,15 +29,17 @@
     }
   </script>
   <style>
-    html {
+    :root {
       --background-color: #f9e5b0;
       --theme-color: #0d3b68;
+      color: var(--theme-color);
       background-color: var(--background-color);
+      font-family:'Courier New', Courier, monospace;
+      font-size: 16px;
     }
     body {
       margin: 0;
       padding: 0;
-      width: 100vw;
     }
   </style>
 </body>
