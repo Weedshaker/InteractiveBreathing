@@ -13,30 +13,57 @@ import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.
 export default class BreathingBubble extends Shadow() {
   constructor (...args) {
     super(...args)
-    this.animationDelay = 500
-    this.animationDuration = 5025
+    this.animationDelay = 500 // this.counter initial string "GO" disappear animation
+    this.animationDuration = 5025 // one breath in/out duration
+    this.counterMessage = 'GO'
+    this.counterMin = 10 // min breath counts until retention
+    this.counterMax = 30 // breath counts until retention
+    this.dblclickListener = event => {
+      if (this.counter >= this.counterMin) this.nextPage()
+    }
+    this.keydownListener = event => {
+      if (event.keyCode === 17) return this.finishPage()
+      if (event.keyCode === 32) {
+        // @ts-ignore
+        if (this.counter === this.counterMessage) return this.clickListener()
+        return this.dblclickListener()
+      }
+    }
     this.clickListener = event => {
       this.counter = 0
       setTimeout(() => this.animationiterationListener(), this.animationDelay)
       this.bubble.classList.add('animate')
+      this.instructionTwoInit.hidden = true
     }
     this.animationiterationListener = event => {
       this.counter++
       this.bubble.textContent = this.counter
+      if (this.counter >= this.counterMin) this.instructionTwo.hidden = false
+      if (this.counter > this.counterMax) this.nextPage()
     }
   }
-
+  
   connectedCallback () {
-    // @ts-ignore
-    this.counter = 'GO'
     if (this.shouldComponentRenderCSS()) this.renderCSS()
-    if (this.shouldComponentRenderHTML()) this.renderHTML()
-    this.bubble.addEventListener('click', this.clickListener)
+    if (this.shouldComponentRenderHTML()) {
+      // @ts-ignore
+      this.counter = this.counterMessage
+      // @ts-ignore
+      this.round = Number(this.round) + 1
+      this.renderHTML()
+    }
+    this.instructionTwoInit.hidden = false
+    this.instructionTwo.hidden = true
+    document.addEventListener('keydown', this.keydownListener)
+    this.addEventListener('dblclick', this.dblclickListener)
     this.bubble.addEventListener('animationiteration', this.animationiterationListener)
+    this.bubble.addEventListener('click', this.clickListener, { once: true })
   }
 
   disconnectedCallback () {
-    this.bubble.removeEventListener('click', this.clickListener)
+    this.bubble.classList.remove('animate')
+    document.removeEventListener('keydown', this.keydownListener)
+    this.removeEventListener('dblclick', this.dblclickListener)
     this.bubble.removeEventListener('animationiteration', this.animationiterationListener)
   }
 
@@ -55,7 +82,8 @@ export default class BreathingBubble extends Shadow() {
    * @return {boolean}
    */
   shouldComponentRenderHTML () {
-    return !this.bubble
+    // @ts-ignore
+    return this.counter !== this.counterMessage || !this.bubble
   }
 
   /**
@@ -125,11 +153,13 @@ export default class BreathingBubble extends Shadow() {
         justify-content: center;
         justify-self: center;
         transition: all var(--animation-delay) ease;
+        user-select: none;
         width: min(70vw, 70vh);
       }
       :host > .bubble.animate {
         animation: bubble ${this.animationDuration}ms ease-in-out var(--animation-delay) infinite;
         border-width: var(--border-width);
+        cursor: auto;
         font-size: var(--font-size-0);
         transform: scale(0.01);
 
@@ -179,18 +209,44 @@ export default class BreathingBubble extends Shadow() {
    * @return {void}
    */
   renderHTML () {
+    this.html = ''
     this.html = /* html */`
       <div class=title>
-        <div class=round-counter>Round 1</div>
-        <div class=end>Finish</div>
+        <div class=round-counter>Round ${this.round}</div>
+        <div class=end>Finish [ctrl]</div>
       </div>
       <div class=instruction-one>Take 30 deep breaths</div>
       <div class=bubble>${this.counter}</div>
-      <div class=instruction-two>Tap twice to go into retention</div>
+      <div class="instruction-two init">Press space to start breathing</div>
+      <div class=instruction-two>Tap twice to go into retention [space]</div>
     `
+  }
+
+  nextPage () {
+    location.hash = '/retention'
+  }
+
+  finishPage () {
+    location.hash = '/result'
+  }
+  
+  set round (value) {
+    localStorage.setItem('round', value)
+  }
+  
+  get round () {
+    return localStorage.getItem('round') || 0
   }
 
   get bubble () {
     return this.root.querySelector('.bubble')
+  }
+
+  get instructionTwoInit () {
+    return this.root.querySelector('.instruction-two.init')
+  }
+
+  get instructionTwo () {
+    return this.root.querySelector('.instruction-two:not(.init)')
   }
 }
