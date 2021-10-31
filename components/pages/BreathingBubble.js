@@ -7,7 +7,7 @@ import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.
  * Breathing Bubble
  *
  * @export
- * @class Bubble
+ * @class BreathingBubble
  * @type {CustomElementConstructor}
  */
 export default class BreathingBubble extends Shadow() {
@@ -231,6 +231,7 @@ export default class BreathingBubble extends Shadow() {
   }
   
   set round (value) {
+    // @ts-ignore
     localStorage.setItem('round', value)
   }
   
