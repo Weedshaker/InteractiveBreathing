@@ -20,11 +20,13 @@ export default class RetentionTime extends BreathingBubble {
     }
     this.clickListener = event => {}
   }
-
+  
   connectedCallback () {
     // @ts-ignore
     this.round = Number(this.round) - 1 // correct the +1 from parent
     super.connectedCallback()
+    this.bubble.textContent = '0:00'
+    this.stopWatch()
   }
 
   /**
@@ -65,5 +67,20 @@ export default class RetentionTime extends BreathingBubble {
 
   nextPage () {
     location.hash = '/recovery'
+  }
+
+  stopWatch () {
+    const startTime = Date.now()
+    setInterval(() => {
+      const elapsedTime = Date.now() - startTime
+      this.bubble.textContent = this.formatTime(elapsedTime)
+    }, 100)
+  }
+
+  formatTime(timestamp) {
+    const date = new Date(timestamp);
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   }
 }

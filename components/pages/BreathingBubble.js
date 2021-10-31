@@ -16,7 +16,7 @@ export default class BreathingBubble extends Shadow() {
     this.animationDelay = 500 // this.counter initial string "GO" disappear animation
     this.animationDuration = 5025 // one breath in/out duration
     this.counterMessage = 'GO'
-    this.counterMin = 10 // min breath counts until retention
+    this.counterMin = 1 // min breath counts until retention
     this.counterMax = 30 // breath counts until retention
     this.dblclickListener = event => {
       if (this.counter >= this.counterMin) this.nextPage()
@@ -25,11 +25,12 @@ export default class BreathingBubble extends Shadow() {
       if (event.keyCode === 17) return this.finishPage()
       if (event.keyCode === 32) {
         // @ts-ignore
-        if (this.counter === this.counterMessage) return this.clickListener()
+        if (this.counter === this.counterMessage) return this.clickListenerOnce()
         return this.dblclickListener()
       }
     }
-    this.clickListener = event => {
+    this.clickListener = event => this.finishPage()
+    this.clickListenerOnce = event => {
       this.counter = 0
       setTimeout(() => this.animationiterationListener(), this.animationDelay)
       this.bubble.classList.add('animate')
@@ -56,14 +57,16 @@ export default class BreathingBubble extends Shadow() {
     this.instructionTwo.hidden = true
     document.addEventListener('keydown', this.keydownListener)
     this.addEventListener('dblclick', this.dblclickListener)
+    this.end.addEventListener('click', this.clickListener)
     this.bubble.addEventListener('animationiteration', this.animationiterationListener)
-    this.bubble.addEventListener('click', this.clickListener, { once: true })
+    this.bubble.addEventListener('click', this.clickListenerOnce, { once: true })
   }
 
   disconnectedCallback () {
     this.bubble.classList.remove('animate')
     document.removeEventListener('keydown', this.keydownListener)
     this.removeEventListener('dblclick', this.dblclickListener)
+    this.end.removeEventListener('click', this.clickListener)
     this.bubble.removeEventListener('animationiteration', this.animationiterationListener)
   }
 
@@ -120,6 +123,7 @@ export default class BreathingBubble extends Shadow() {
       }
       :host > .title > .end {
         color: coral;
+        cursor: pointer;
         position: absolute;
         right: 0;
         top: 0;
@@ -159,12 +163,12 @@ export default class BreathingBubble extends Shadow() {
       :host > .bubble.animate {
         animation: bubble ${this.animationDuration}ms ease-in-out var(--animation-delay) infinite;
         border-width: var(--border-width);
-        cursor: auto;
         font-size: var(--font-size-0);
         transform: scale(0.01);
 
       }
       :host > .instruction-two {
+        cursor: pointer;
         grid-area: instruction-two;
       }
       @media only screen and (max-width: ${this.getAttribute('mobile-breakpoint') ? this.getAttribute('mobile-breakpoint') : self.Environment && !!self.Environment.mobileBreakpoint ? self.Environment.mobileBreakpoint : '1000px'}) {
@@ -237,6 +241,10 @@ export default class BreathingBubble extends Shadow() {
   
   get round () {
     return localStorage.getItem('round') || 0
+  }
+
+  get end () {
+    return this.root.querySelector('.end')
   }
 
   get bubble () {
