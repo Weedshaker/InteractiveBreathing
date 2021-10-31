@@ -1,7 +1,7 @@
 {
   "name": "InteractiveBreathing",
   "version": "0.0.1",
-  "description": "https://www.wimhofmethod.com/",
+  "description": "https://www.wimhofmethod.com/breathing-techniques",
   "main": "./index.html",
   "scripts": {
     "fix": "standard --fix",
