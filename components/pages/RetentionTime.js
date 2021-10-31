@@ -81,6 +81,6 @@ export default class RetentionTime extends BreathingBubble {
     const date = new Date(timestamp);
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+    return `${minutes}:${String(seconds).length < 2 ? `0${seconds}` : seconds}`;
   }
 }
