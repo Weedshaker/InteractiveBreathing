@@ -14,8 +14,8 @@ export default class Teaser extends Shadow() {
   constructor (...args) {
     super(...args)
     this.animationDuration = 5025
-    this.counter = 0
-    this.animationiterationListener = this.animationstartListener = event => {
+    this.counter = 1
+    this.animationiterationListener = event => {
       this.counter++
       this.bubble.textContent = this.counter
     }
@@ -25,12 +25,10 @@ export default class Teaser extends Shadow() {
     super.connectedCallback()
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     if (this.shouldComponentRenderHTML()) this.renderHTML()
-    this.bubble.addEventListener('animationstart', this.animationstartListener)
     this.bubble.addEventListener('animationiteration', this.animationiterationListener)
   }
 
   disconnectedCallback () {
-    this.bubble.removeEventListener('animationstart', this.animationstartListener)
     this.bubble.removeEventListener('animationiteration', this.animationiterationListener)
   }
 
@@ -170,7 +168,7 @@ export default class Teaser extends Shadow() {
         <div class=round-counter>Round 1</div>
         <div class=end>Finish</div>
       </div>
-       <div class=instruction-one>Take 30 deep breaths</div>
+      <div class=instruction-one>Take 30 deep breaths</div>
       <div class=bubble>${this.counter}</div>
       <div class=instruction-two>Tap twice to go into retention</div>
     `
