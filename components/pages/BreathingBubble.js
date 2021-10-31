@@ -4,19 +4,17 @@ import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.
 /* global self */
 
 /**
- * As a molecule, this component shall hold Atoms
+ * Breathing Bubble
  *
  * @export
  * @class Bubble
  * @type {CustomElementConstructor}
  */
-export default class Teaser extends Shadow() {
+export default class BreathingBubble extends Shadow() {
   constructor (...args) {
     super(...args)
     this.animationDelay = 500
     this.animationDuration = 5025
-    /** @type {any} */
-    this.counter = 'GO'
     this.clickListener = event => {
       this.counter = 0
       setTimeout(() => this.animationiterationListener(), this.animationDelay)
@@ -29,7 +27,8 @@ export default class Teaser extends Shadow() {
   }
 
   connectedCallback () {
-    super.connectedCallback()
+    // @ts-ignore
+    this.counter = 'GO'
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     if (this.shouldComponentRenderHTML()) this.renderHTML()
     this.bubble.addEventListener('click', this.clickListener)
