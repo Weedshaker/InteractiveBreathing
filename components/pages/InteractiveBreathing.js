@@ -13,8 +13,15 @@ import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.
 export default class Teaser extends Shadow() {
   constructor (...args) {
     super(...args)
+    this.animationDelay = 500
     this.animationDuration = 5025
-    this.counter = 1
+    /** @type {any} */
+    this.counter = 'GO'
+    this.clickListener = event => {
+      this.counter = 0
+      setTimeout(() => this.animationiterationListener(), this.animationDelay)
+      this.bubble.classList.add('animate')
+    }
     this.animationiterationListener = event => {
       this.counter++
       this.bubble.textContent = this.counter
@@ -25,10 +32,12 @@ export default class Teaser extends Shadow() {
     super.connectedCallback()
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     if (this.shouldComponentRenderHTML()) this.renderHTML()
+    this.bubble.addEventListener('click', this.clickListener)
     this.bubble.addEventListener('animationiteration', this.animationiterationListener)
   }
 
   disconnectedCallback () {
+    this.bubble.removeEventListener('click', this.clickListener)
     this.bubble.removeEventListener('animationiteration', this.animationiterationListener)
   }
 
@@ -99,27 +108,42 @@ export default class Teaser extends Shadow() {
         font-weight: bold;
       }
       :host > .bubble {
+        --animation-delay: ${this.animationDelay}ms;
         align-items: center;
         align-self: center;
-        animation: bubble ${this.animationDuration}ms ease-in-out infinite;
         background-color: var(--theme-color);
         background: linear-gradient(0deg, rgba(13,59,104,0.8533788515406162) 0%, rgba(13,59,104,0.7525385154061625) 25%, rgba(255,255,255,1) 100%);
-        border: var(--border-width) solid var(--theme-color);
+        border: 1rem solid var(--theme-color);
         border-radius: 50%;
         box-shadow: 0 2px 8px 0 var(--theme-color);
         box-sizing: border-box;
+        cursor: pointer;
         display: flex;
-        font-size: var(--font-size-0);
+        font-size: var(--font-size-100);
         font-weight: 500;
         grid-area: bubble;
         height: min(70vw, 70vh);
         justify-content: center;
         justify-self: center;
-        transform: scale(0.01);
+        transition: all var(--animation-delay) ease;
         width: min(70vw, 70vh);
+      }
+      :host > .bubble.animate {
+        animation: bubble ${this.animationDuration}ms ease-in-out var(--animation-delay) infinite;
+        border-width: var(--border-width);
+        font-size: var(--font-size-0);
+        transform: scale(0.01);
+
       }
       :host > .instruction-two {
         grid-area: instruction-two;
+      }
+      @media only screen and (max-width: ${this.getAttribute('mobile-breakpoint') ? this.getAttribute('mobile-breakpoint') : self.Environment && !!self.Environment.mobileBreakpoint ? self.Environment.mobileBreakpoint : '1000px'}) {
+        :host {
+          --border-width: min(20vw, 15rem);
+          --font-size-0: min(15vw, 10em);
+          --font-size-100: min(45vw, 20em);
+        }
       }
       @keyframes bubble{
         0%{
@@ -145,13 +169,6 @@ export default class Teaser extends Shadow() {
           border-width: var(--border-width);
           font-size: var(--font-size-0);
           transform: scale(0.01);
-        }
-      }
-      @media only screen and (max-width: ${this.getAttribute('mobile-breakpoint') ? this.getAttribute('mobile-breakpoint') : self.Environment && !!self.Environment.mobileBreakpoint ? self.Environment.mobileBreakpoint : '1000px'}) {
-        :host {
-          --border-width: min(20vw, 15rem);
-          --font-size-0: min(15vw, 10em);
-          --font-size-100: min(45vw, 20em);
         }
       }
     `
