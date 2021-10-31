@@ -1,5 +1,5 @@
 // @ts-check
-import {Shadow} from '../../event-driven-web-components-prototypes/src/Shadow.js'
+import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.js'
 
 /* global self */
 
@@ -13,7 +13,7 @@ import {Shadow} from '../../event-driven-web-components-prototypes/src/Shadow.js
 export default class Teaser extends Shadow() {
   constructor (...args) {
     super(...args)
-    this.animationDuration = 5025;
+    this.animationDuration = 5025
     this.counter = 0
     this.animationiterationListener = this.animationstartListener = event => {
       this.counter++
