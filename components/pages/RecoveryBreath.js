@@ -2,10 +2,9 @@
 import RetentionTime from './RetentionTime.js'
 
 /* global location */
-/* global CustomEvent */
 
 /**
- * Retention Time
+ * Recovery Time
  *
  * @export
  * @class RecoveryBreath

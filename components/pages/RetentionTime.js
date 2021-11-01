@@ -97,7 +97,7 @@ export default class RetentionTime extends BreathingBubble {
   stopWatch () {
     this.bubble.textContent = '0:00'
     const startTime = Date.now()
-    this.interval = setInterval(() => this.bubble.textContent = this.formatTime(Date.now() - startTime), 100)
+    this.interval = setInterval(() => (this.bubble.textContent = this.formatTime(Date.now() - startTime)), 100)
   }
 
   formatTime (timestamp) {

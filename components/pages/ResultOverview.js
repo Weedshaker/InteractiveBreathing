@@ -1,12 +1,12 @@
 // @ts-check
 import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.js'
 
+/* global CustomEvent */
 /* global location */
-/* global self */
 /* global sessionStorage */
 
 /**
- * Breathing Bubble
+ * old school table style Result Page
  *
  * @export
  * @class ResultOverview
@@ -121,14 +121,15 @@ export default class ResultOverview extends Shadow() {
           if (times[key].length > colspan) colspan = times[key].length
         }
         let table = ''
-        Object.keys(times).sort((a, b) => new Date(b) - new Date(a)).forEach(key => table += /* html */`
+        // @ts-ignore
+        Object.keys(times).sort((a, b) => (new Date(b) - new Date(a))).forEach(key => (table += /* html */`
           <tr>
             <th colspan=${colspan}>${key}</th>
           </tr>
           <tr>
             ${times[key].map((time, i) => /* html */`<td>Round&nbsp;${i + 1}: <b>${time}</b></td>`).join('')}
           </tr>
-        `)
+        `))
         table = /* html */`
           <table>
             <tbody>
