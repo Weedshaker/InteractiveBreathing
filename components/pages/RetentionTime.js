@@ -13,20 +13,30 @@ import BreathingBubble from './BreathingBubble.js'
 export default class RetentionTime extends BreathingBubble {
   constructor (...args) {
     super(...args)
-    this.dblclickListener = event => this.nextPage()
+    this.dblclickListener = event => {
+      console.log('save bubble time', this.bubble.textContent);
+      this.nextPage()
+    }
     this.keydownListener = event => {
       if (event.keyCode === 17) return this.finishPage()
       if (event.keyCode === 32)  return this.dblclickListener()
     }
-    this.clickListener = event => {}
+    this.clickListenerOnce = event => {}
   }
   
   connectedCallback () {
-    // @ts-ignore
-    this.round = Number(this.round) - 1 // correct the +1 from parent
-    super.connectedCallback()
-    this.bubble.textContent = '0:00'
+    super.connectedCallback(false)
     this.stopWatch()
+  }
+
+  /**
+   * evaluates if a render is necessary
+   *
+   * @return {boolean}
+   */
+  shouldComponentRenderHTML () {
+    // @ts-ignore
+    return !this.bubble
   }
 
   /**
@@ -70,6 +80,7 @@ export default class RetentionTime extends BreathingBubble {
   }
 
   stopWatch () {
+    this.bubble.textContent = '0:00'
     const startTime = Date.now()
     setInterval(() => {
       const elapsedTime = Date.now() - startTime

@@ -44,13 +44,13 @@ export default class BreathingBubble extends Shadow() {
     }
   }
   
-  connectedCallback () {
+  connectedCallback (newRound = true) {
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     if (this.shouldComponentRenderHTML()) {
       // @ts-ignore
       this.counter = this.counterMessage
       // @ts-ignore
-      this.round = Number(this.round) + 1
+      if (newRound) this.round = Number(this.round) + 1
       this.renderHTML()
     }
     this.instructionTwoInit.hidden = false
