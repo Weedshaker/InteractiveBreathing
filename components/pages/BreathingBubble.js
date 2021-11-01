@@ -236,11 +236,11 @@ export default class BreathingBubble extends Shadow() {
   
   set round (value) {
     // @ts-ignore
-    localStorage.setItem('round', value)
+    sessionStorage.setItem('round', value)
   }
   
   get round () {
-    return localStorage.getItem('round') || 0
+    return sessionStorage.getItem('round') || 0
   }
 
   get end () {

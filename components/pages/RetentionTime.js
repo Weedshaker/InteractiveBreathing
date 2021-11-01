@@ -14,8 +14,16 @@ export default class RetentionTime extends BreathingBubble {
   constructor (...args) {
     super(...args)
     this.dblclickListener = event => {
-      console.log('save bubble time', this.bubble.textContent);
-      this.nextPage()
+      this.dispatchEvent(new CustomEvent('setTime', {
+        /** @type {import("../controllers/LocalStorage.js").SetTimeDetail} */
+        detail: {
+          time: this.bubble.textContent
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
+      //this.nextPage()
     }
     this.keydownListener = event => {
       if (event.keyCode === 17) return this.finishPage()
