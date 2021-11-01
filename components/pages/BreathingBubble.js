@@ -1,7 +1,9 @@
 // @ts-check
 import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.js'
 
+/* global location */
 /* global self */
+/* global sessionStorage */
 
 /**
  * Breathing Bubble
@@ -43,7 +45,7 @@ export default class BreathingBubble extends Shadow() {
       if (this.counter > this.counterMax) this.nextPage()
     }
   }
-  
+
   connectedCallback (newRound = true) {
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     if (this.shouldComponentRenderHTML()) {
@@ -171,7 +173,10 @@ export default class BreathingBubble extends Shadow() {
         cursor: pointer;
         grid-area: instruction-two;
       }
-      @media only screen and (max-width: ${this.getAttribute('mobile-breakpoint') ? this.getAttribute('mobile-breakpoint') : self.Environment && !!self.Environment.mobileBreakpoint ? self.Environment.mobileBreakpoint : '1000px'}) {
+      @media only screen and (max-width: ${
+        // @ts-ignore
+        this.getAttribute('mobile-breakpoint') ? this.getAttribute('mobile-breakpoint') : self.Environment && !!self.Environment.mobileBreakpoint ? self.Environment.mobileBreakpoint : '1000px'
+      }) {
         :host {
           --border-width: min(20vw, 15rem);
           --font-size-0: min(15vw, 10em);
@@ -233,12 +238,12 @@ export default class BreathingBubble extends Shadow() {
   finishPage () {
     location.hash = '/result'
   }
-  
+
   set round (value) {
     // @ts-ignore
     sessionStorage.setItem('round', value)
   }
-  
+
   get round () {
     return sessionStorage.getItem('round') || 0
   }

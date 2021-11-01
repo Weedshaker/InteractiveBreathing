@@ -1,7 +1,8 @@
 // @ts-check
 import BreathingBubble from './BreathingBubble.js'
 
-/* global self */
+/* global location */
+/* global CustomEvent */
 
 /**
  * Retention Time
@@ -23,15 +24,15 @@ export default class RetentionTime extends BreathingBubble {
         cancelable: true,
         composed: true
       }))
-      //this.nextPage()
+      this.nextPage()
     }
     this.keydownListener = event => {
       if (event.keyCode === 17) return this.finishPage()
-      if (event.keyCode === 32)  return this.dblclickListener()
+      if (event.keyCode === 32) return this.dblclickListener()
     }
     this.clickListenerOnce = event => {}
   }
-  
+
   connectedCallback () {
     super.connectedCallback(false)
     this.stopWatch()
@@ -96,10 +97,10 @@ export default class RetentionTime extends BreathingBubble {
     }, 100)
   }
 
-  formatTime(timestamp) {
-    const date = new Date(timestamp);
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-    return `${minutes}:${String(seconds).length < 2 ? `0${seconds}` : seconds}`;
+  formatTime (timestamp) {
+    const date = new Date(timestamp)
+    const minutes = date.getMinutes()
+    const seconds = date.getSeconds()
+    return `${minutes}:${String(seconds).length < 2 ? `0${seconds}` : seconds}`
   }
 }
