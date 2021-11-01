@@ -23,7 +23,10 @@ export default class ResultOverview extends Shadow() {
 
   connectedCallback (newRound = true) {
     if (this.shouldComponentRenderCSS()) this.renderCSS()
-    this.renderHTML().then(() => this.end.addEventListener('click', this.clickListener))
+    this.renderHTML().then(() => {
+      this.end.addEventListener('click', this.clickListener)
+      this.startSound()
+    })
     sessionStorage.removeItem('round')
     document.addEventListener('keydown', this.keydownListener)
   }
@@ -31,6 +34,7 @@ export default class ResultOverview extends Shadow() {
   disconnectedCallback () {
     document.removeEventListener('keydown', this.keydownListener)
     this.end.removeEventListener('click', this.clickListener)
+    this.sound.pause()
   }
 
   /**
@@ -139,11 +143,12 @@ export default class ResultOverview extends Shadow() {
         `
         this.html = /* html */`
           <div class=title>
-            <iframe class="gh-button" src="https://ghbtns.com/github-btn.html?user=Weedshaker&amp;repo=InteractiveBreathing&amp;type=star&amp;count=true&amp;size=large" scrolling="0" width="160px" height="30px" frameborder="0"></iframe>
+            <iframe class=gh-button src="https://ghbtns.com/github-btn.html?user=Weedshaker&amp;repo=InteractiveBreathing&amp;type=star&amp;count=true&amp;size=large" scrolling="0" width="160px" height="30px" frameborder="0"></iframe>
             <div>Results</div>
             <div class=end>Start Over [ctrl]</div>
           </div>
           <div class=results>${table}</div>
+          <audio class=sound src="./sound/finishing.mp3"></audio>
         `
       }
     )
@@ -153,7 +158,17 @@ export default class ResultOverview extends Shadow() {
     location.hash = '/breathing'
   }
 
+  startSound (sound = this.sound) {
+    sound.pause()
+    sound.currentTime = 0
+    sound.play()
+  }
+
   get end () {
     return this.root.querySelector('.end')
+  }
+
+  get sound () {
+    return this.root.querySelector('.sound')
   }
 }

@@ -37,6 +37,7 @@ export default class RetentionTime extends BreathingBubble {
     super.connectedCallback(false)
     this.roundCounter.textContent = `Round ${this.round}`
     this.stopWatch()
+    this.startSound()
   }
 
   disconnectedCallback () {
@@ -87,6 +88,7 @@ export default class RetentionTime extends BreathingBubble {
       <div class=bubble>0:00</div>
       <div class="instruction-two init">Tap twice to go into recovery breath [space]</div>
       <div class=instruction-two></div>
+      <audio class=sound src="./sound/littleGong.mp3"></audio>
     `
   }
 

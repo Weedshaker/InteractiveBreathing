@@ -41,9 +41,7 @@ export default class BreathingBubble extends Shadow() {
     this.animationiterationListener = event => {
       this.counter++
       this.bubble.textContent = this.counter
-      this.breath.pause()
-      this.breath.currentTime = 0
-      this.breath.play()
+      this.startSound()
       if (this.counter >= this.counterMin) this.instructionTwo.hidden = false
       if (this.counter > this.counterMax) this.nextPage()
     }
@@ -77,6 +75,7 @@ export default class BreathingBubble extends Shadow() {
     this.removeEventListener('dblclick', this.dblclickListener)
     this.end.removeEventListener('click', this.clickListener)
     this.bubble.removeEventListener('animationiteration', this.animationiterationListener)
+    this.sound.pause()
   }
 
   /**
@@ -238,7 +237,7 @@ export default class BreathingBubble extends Shadow() {
       <div class=bubble>${this.counter}</div>
       <div class="instruction-two init">Press space to start breathing</div>
       <div class=instruction-two>Tap twice to go into retention [space]</div>
-      <audio class="breath" src="./sound/breath.mp3"></audio>
+      <audio class=sound src="./sound/breath.mp3"></audio>
     `
   }
 
@@ -248,6 +247,12 @@ export default class BreathingBubble extends Shadow() {
 
   finishPage () {
     location.hash = '/result'
+  }
+
+  startSound (sound = this.sound) {
+    sound.pause()
+    sound.currentTime = 0
+    sound.play()
   }
 
   set round (value) {
@@ -279,7 +284,7 @@ export default class BreathingBubble extends Shadow() {
     return this.root.querySelector('.instruction-two:not(.init)')
   }
 
-  get breath () {
-    return this.root.querySelector('.breath')
+  get sound () {
+    return this.root.querySelector('.sound')
   }
 }
