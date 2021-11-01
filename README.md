@@ -4,7 +4,9 @@
 - @all: "[Visit Wim\'s Website and support his mission!](https://www.wimhofmethod.com/breathing-techniques)"
 - Note: The ignorant work for their own profit, Arjuna; the wise work for the welfare of the world, without thought for themselves.
 
-[<img src="https://weedshaker.github.io/InteractiveBreathing/img/icon_192x192.png">](https://weedshaker.github.io/InteractiveBreathing/index.html "Start breathing Bro!")<br />
+<p align="center">
+  [<img src="https://weedshaker.github.io/InteractiveBreathing/img/icon_192x192.png">](https://weedshaker.github.io/InteractiveBreathing/index.html "Start breathing Bro!")<br />
+</p>
 
 Maybe TODO's:
 - Retention Time background sounds
