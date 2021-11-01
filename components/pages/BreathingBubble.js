@@ -41,6 +41,9 @@ export default class BreathingBubble extends Shadow() {
     this.animationiterationListener = event => {
       this.counter++
       this.bubble.textContent = this.counter
+      this.breath.pause()
+      this.breath.currentTime = 0
+      this.breath.play()
       if (this.counter >= this.counterMin) this.instructionTwo.hidden = false
       if (this.counter > this.counterMax) this.nextPage()
     }
@@ -177,6 +180,9 @@ export default class BreathingBubble extends Shadow() {
         cursor: pointer;
         grid-area: instruction-two;
       }
+      :host > audio {
+        display: none;
+      }
       @media only screen and (max-width: ${
         // @ts-ignore
         this.getAttribute('mobile-breakpoint') ? this.getAttribute('mobile-breakpoint') : self.Environment && !!self.Environment.mobileBreakpoint ? self.Environment.mobileBreakpoint : '1000px'
@@ -232,6 +238,7 @@ export default class BreathingBubble extends Shadow() {
       <div class=bubble>${this.counter}</div>
       <div class="instruction-two init">Press space to start breathing</div>
       <div class=instruction-two>Tap twice to go into retention [space]</div>
+      <audio class="breath" src="./sound/breath.mp3"></audio>
     `
   }
 
@@ -270,5 +277,9 @@ export default class BreathingBubble extends Shadow() {
 
   get instructionTwo () {
     return this.root.querySelector('.instruction-two:not(.init)')
+  }
+
+  get breath () {
+    return this.root.querySelector('.breath')
   }
 }

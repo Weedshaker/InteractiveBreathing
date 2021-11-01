@@ -4,9 +4,9 @@
 - @all: "[Visit Wim\'s Website and support his mission!](https://www.wimhofmethod.com/breathing-techniques)"
 - Note: The ignorant work for their own profit, Arjuna; the wise work for the welfare of the world, without thought for themselves.
 
-TODO:
-- breath sound
+Maybe TODO's:
 - minute sound
+- background sounds
 - Service Worker for offline use
 
 *Interactive Breathing is released under GPL-3.0 License . Copyright (c) the Universe.*
