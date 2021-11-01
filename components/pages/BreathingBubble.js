@@ -61,7 +61,11 @@ export default class BreathingBubble extends Shadow() {
     this.addEventListener('dblclick', this.dblclickListener)
     this.end.addEventListener('click', this.clickListener)
     this.bubble.addEventListener('animationiteration', this.animationiterationListener)
-    this.bubble.addEventListener('click', this.clickListenerOnce, { once: true })
+    if (this.round > 1) {
+      this.clickListenerOnce()
+    } else {
+      this.bubble.addEventListener('click', this.clickListenerOnce, { once: true })
+    }
   }
 
   disconnectedCallback () {
@@ -246,6 +250,10 @@ export default class BreathingBubble extends Shadow() {
 
   get round () {
     return sessionStorage.getItem('round') || 0
+  }
+
+  get roundCounter () {
+    return this.root.querySelector('.round-counter')
   }
 
   get end () {

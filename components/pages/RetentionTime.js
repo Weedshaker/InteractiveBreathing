@@ -35,7 +35,13 @@ export default class RetentionTime extends BreathingBubble {
 
   connectedCallback () {
     super.connectedCallback(false)
+    this.roundCounter.textContent = `Round ${this.round}`
     this.stopWatch()
+  }
+
+  disconnectedCallback () {
+    super.disconnectedCallback()
+    clearInterval(this.interval)
   }
 
   /**
@@ -91,10 +97,7 @@ export default class RetentionTime extends BreathingBubble {
   stopWatch () {
     this.bubble.textContent = '0:00'
     const startTime = Date.now()
-    setInterval(() => {
-      const elapsedTime = Date.now() - startTime
-      this.bubble.textContent = this.formatTime(elapsedTime)
-    }, 100)
+    this.interval = setInterval(() => this.bubble.textContent = this.formatTime(Date.now() - startTime), 100)
   }
 
   formatTime (timestamp) {
