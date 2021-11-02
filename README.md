@@ -8,8 +8,8 @@
 [👆 Click and start breathing Bro! 😎🤙](https://weedshaker.github.io/InteractiveBreathing/index.html)
 
 Maybe TODO's:
-- timer%60000 bug (modolus does not always trigger sound on interval, seems like it sometimes gets skipped)
-- Buggy on IPhone 8 (maybe fix but as long as it runs fine on Desktop... 🙄)
+- Animation buggy on IPhone 8 (maybe fix but as long as it runs fine on Desktop... 🙄)
+- timer%60000 bug (modulus does often not trigger sound on interval, seems like it gets skipped)
 - Add Retention Time background sounds
 - Add Service Worker for offline use
 
