@@ -8,7 +8,9 @@
 [👆 Click and start breathing Bro! 😎🤙](https://weedshaker.github.io/InteractiveBreathing/index.html)
 
 Maybe TODO's:
-- Retention Time background sounds
-- Service Worker for offline use
+- timer%60000 bug (modolus does not always trigger sound on interval, seems like it sometimes gets skipped)
+- Buggy on IPhone 8 (maybe fix but as long as it runs fine on Desktop... 🙄)
+- Add Retention Time background sounds
+- Add Service Worker for offline use
 
 *Interactive Breathing is released under GPL-3.0 License . Copyright (c) the Universe.*
