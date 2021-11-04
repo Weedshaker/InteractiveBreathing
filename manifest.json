@@ -1,6 +1,6 @@
 {
     "name": "Interactive Breathing",
-    "short_name": "Breath!",
+    "short_name": "breathe!",
     "start_url": "./",
     "display": "fullscreen",
     "background_color": "#f9e5b0",
