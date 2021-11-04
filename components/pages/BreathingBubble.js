@@ -164,7 +164,9 @@ export default class BreathingBubble extends Shadow() {
         height: min(70vw, 70vh);
         justify-content: center;
         justify-self: center;
-        transition: all var(--animation-delay) ease;
+        transition-duration: var(--animation-delay);
+        transition-property: transform, border-width;
+        transition-timing-function: ease;
         user-select: none;
         width: min(70vw, 70vh);
       }
@@ -173,7 +175,6 @@ export default class BreathingBubble extends Shadow() {
         border-width: var(--border-width);
         font-size: var(--font-size-0);
         transform: scale(0.01);
-
       }
       :host > .instruction-two {
         cursor: pointer;

@@ -17,6 +17,12 @@
     <title>Interactive Breathing</title>
 </head>
 <body>
+  <!-- link rel="preload" as="audio" is unsupported, trying to trigger the browser here to preload  -->
+  <audio hidden=true src="./sound/breath.mp3"></audio>
+  <audio hidden=true src="./sound/finishing.mp3"></audio>
+  <audio hidden=true src="./sound/littleGong.mp3"></audio>
+  <audio hidden=true src="./sound/longGong.mp3"></audio>
+  <!-- /link rel="preload" as="audio" is unsupported, trying to trigger the browser here to preload  -->
   <c-local-storage>
     <c-router mode=hash routes="[
       {

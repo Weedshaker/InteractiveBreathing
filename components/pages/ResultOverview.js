@@ -19,12 +19,18 @@ export default class ResultOverview extends Shadow() {
       if (event.keyCode === 17) return this.nextPage()
     }
     this.clickListener = event => this.nextPage()
+    this.endedListener = event => {
+      // play the 5min sound twice to encourage 10min meditation after done breathing
+      if (location.hash === '#/result') this.sound.play()
+    }
   }
 
   connectedCallback (newRound = true) {
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     this.renderHTML().then(() => {
       this.end.addEventListener('click', this.clickListener)
+      this.sound.addEventListener('ended', this.endedListener, { once: true })
+      this.sound.volume = 0.5
       this.startSound()
     })
     sessionStorage.removeItem('round')
