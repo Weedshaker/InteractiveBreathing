@@ -8,6 +8,7 @@
 [👆 Click and start breathing Bro! 😎🤙](https://weedshaker.github.io/InteractiveBreathing/index.html)
 
 Maybe TODO's:
+- Optimize for mobile (iphone animation and user gesture sound block/trigger workaround)
 - Add Retention Time background sounds
 - Add Service Worker for offline use
 
