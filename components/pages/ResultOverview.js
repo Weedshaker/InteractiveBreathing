@@ -87,6 +87,7 @@ export default class ResultOverview extends Shadow() {
       :host > .title > .end {
         color: coral;
         cursor: pointer;
+        padding: 0 0 2em 2em;
         position: absolute;
         right: 0;
         top: 0;

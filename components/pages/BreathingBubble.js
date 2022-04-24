@@ -132,6 +132,7 @@ export default class BreathingBubble extends Shadow() {
       :host > .title > .end {
         color: coral;
         cursor: pointer;
+        padding: 0 0 2em 2em;
         position: absolute;
         right: 0;
         top: 0;
@@ -178,6 +179,7 @@ export default class BreathingBubble extends Shadow() {
       }
       :host > .instruction-two {
         cursor: pointer;
+        padding: 2em 2em 0;
         grid-area: instruction-two;
       }
       :host > audio {
