@@ -77,6 +77,16 @@
     self.Environment = {
       mobileBreakpoint: '600px'
     }
+    // iphone fix, which would always keep other sounds locked, if not unlocked through user interaction
+    // here grab first user interaction and unlock all audio elements by playing them, later make sure to only use already unlocked elements directly in document body
+    document.body.addEventListener('click', event => {
+      Array.from(document.querySelectorAll('audio')).forEach(audio => {
+        if (audio.paused) {
+          audio.play()
+          audio.pause()
+        }
+      })
+    }, { once: true })
   </script>
   <style>
     :root {
