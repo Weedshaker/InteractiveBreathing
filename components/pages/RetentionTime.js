@@ -113,4 +113,8 @@ export default class RetentionTime extends BreathingBubble {
     const seconds = date.getSeconds()
     return `${minutes}:${String(seconds).length < 2 ? `0${seconds}` : seconds}`
   }
+
+  get sound () {
+    return document.querySelector('#littleGong') || this.root.querySelector('.sound')
+  }
 }

@@ -71,6 +71,10 @@ export default class RecoveryBreath extends RetentionTime {
   }
 
   get breathSound () {
-    return this.root.querySelector('.breath-sound')
+    return document.querySelector('#breath') || this.root.querySelector('.breath-sound')
+  }
+
+  get sound () {
+    return document.querySelector('#longGong') || this.root.querySelector('.sound')
   }
 }

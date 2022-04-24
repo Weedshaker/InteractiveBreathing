@@ -175,6 +175,6 @@ export default class ResultOverview extends Shadow() {
   }
 
   get sound () {
-    return this.root.querySelector('.sound')
+    return document.querySelector('#finishing') || this.root.querySelector('.sound')
   }
 }

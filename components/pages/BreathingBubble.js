@@ -286,6 +286,6 @@ export default class BreathingBubble extends Shadow() {
   }
 
   get sound () {
-    return this.root.querySelector('.sound')
+    return document.querySelector('#breath') || this.root.querySelector('.sound')
   }
 }

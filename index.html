@@ -31,11 +31,12 @@
     <title>Interactive Breathing</title>
 </head>
 <body>
-  <!-- link rel="preload" as="audio" is unsupported, trying to trigger the browser here to preload  -->
-  <audio hidden=true src="./sound/breath.mp3"></audio>
-  <audio hidden=true src="./sound/finishing.mp3"></audio>
-  <audio hidden=true src="./sound/littleGong.mp3"></audio>
-  <audio hidden=true src="./sound/longGong.mp3"></audio>
+  <!-- link rel="preload" as="audio" is unsupported, trying to trigger the browser here to preload -->
+  <!-- preferably use this sounds, trying to have mobile unlock and keep these sounds unlock -->
+  <audio id=breath hidden=true src="./sound/breath.mp3"></audio>
+  <audio id=finishing hidden=true src="./sound/finishing.mp3"></audio>
+  <audio id=littleGong hidden=true src="./sound/littleGong.mp3"></audio>
+  <audio id=longGong hidden=true src="./sound/longGong.mp3"></audio>
   <!-- /link rel="preload" as="audio" is unsupported, trying to trigger the browser here to preload  -->
   <c-local-storage>
     <c-router mode=hash routes="[
@@ -64,7 +65,7 @@
         'path': '../../components/pages/ResultOverview.js',
         'regExp': '/^#\/result/'
       }
-    ]"></c-router>
+    ]" hide="true"></c-router>
   </c-local-storage>
   <script rel=preload type=module>
     import('./components/controllers/LocalStorage.js').then(module => {
