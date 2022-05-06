@@ -122,6 +122,20 @@ export default class BreathingBubble extends Shadow() {
         padding: 1em;
         width: 100vw;
       }
+      :host a {
+        color: coral;
+        text-decoration: none;
+      }
+      :host a > span {
+        display: inline-block;
+        transition: transform .3s ease;
+      }
+      :host a:hover > span:first-of-type {
+        transform: translate(0.4em, -0.1em) rotate(20deg);
+      }
+      :host a:hover > span:last-of-type {
+        transform: translate(-0.4em, -0.1em) rotate(-20deg);
+      }
       :host > * {
         text-align: center;
       }
@@ -132,7 +146,7 @@ export default class BreathingBubble extends Shadow() {
       :host > .title > .end {
         color: coral;
         cursor: pointer;
-        padding: 0 0 2em 2em;
+        padding: 0 0 3em 3em;
         position: absolute;
         right: 0;
         top: 0;
@@ -178,8 +192,6 @@ export default class BreathingBubble extends Shadow() {
         transform: scale(0.01);
       }
       :host > .instruction-two {
-        cursor: pointer;
-        padding: 2em 2em 0;
         grid-area: instruction-two;
       }
       :host > audio {
@@ -236,7 +248,7 @@ export default class BreathingBubble extends Shadow() {
         <div class=round-counter>Round ${this.round}</div>
         <div class=end>Finish [ctrl]</div>
       </div>
-      <div class=instruction-one>Take 30 deep breaths</div>
+      <div class=instruction-one>Take 30 deep breaths<br><a href=https://www.wimhofmethod.com/breathing-techniques target=_blank><span>👉</span> About <span>👈</span></a></div>
       <div class=bubble>${this.counter}</div>
       <div class="instruction-two init">Press space to start breathing</div>
       <div class=instruction-two>Tap twice to go into retention [space]</div>
