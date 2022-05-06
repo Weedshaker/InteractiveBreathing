@@ -98,6 +98,7 @@ export default class ResultOverview extends Shadow() {
       }
       :host > .results {
         grid-area: results;
+        overflow: auto;
       }
       :host > .results > table {
         margin: 0 auto;
