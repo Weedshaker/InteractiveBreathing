@@ -78,5 +78,11 @@
           "sizes": "192x192",
           "type": "image\/png"
         }
-    ]
+    ],
+    "serviceworker": {
+      "src": "./MasterServiceWorker.js",
+      "scope": "./",
+      "type": "",
+      "update_via_cache": "none"
+    }
 }

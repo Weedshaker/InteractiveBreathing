@@ -28,7 +28,7 @@
     <link rel="preload" href="./sound/finishing.mp3" as="audio">
     <link rel="preload" href="./sound/littleGong.mp3" as="audio">
     <link rel="preload" href="./sound/longGong.mp3" as="audio">
-    <title>Interactive Breathing</title>
+    <title>Interactive Breathing Bubble 😎🤙</title>
 </head>
 <body>
   <!-- link rel="preload" as="audio" is unsupported, trying to trigger the browser here to preload -->
@@ -77,6 +77,7 @@
     self.Environment = {
       mobileBreakpoint: '600px'
     }
+    navigator.serviceWorker.register('MasterServiceWorker.js', { scope: './' }).then(registration => registration.update()).catch(error => console.error(error))
     // iphone fix, which would always keep other sounds locked, if not unlocked through user interaction
     // here grab first user interaction and unlock all audio elements by playing them, later make sure to only use already unlocked elements directly in document body
     document.body.addEventListener('click', event => {

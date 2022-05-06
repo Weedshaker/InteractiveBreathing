@@ -9,6 +9,5 @@
 
 Maybe TODO's:
 - Add Retention Time background sounds
-- Add Service Worker for offline use
 
 *Interactive Breathing is released under GPL-3.0 License . Copyright (c) the Universe.*

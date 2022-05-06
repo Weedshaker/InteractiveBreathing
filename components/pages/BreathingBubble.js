@@ -45,6 +45,7 @@ export default class BreathingBubble extends Shadow() {
       if (this.counter >= this.counterMin) this.instructionTwo.hidden = false
       if (this.counter > this.counterMax) this.nextPage()
     }
+    this.beforeunloadListener = event => this.round = 0
   }
 
   connectedCallback (newRound = true) {
@@ -67,6 +68,7 @@ export default class BreathingBubble extends Shadow() {
     } else {
       this.bubble.addEventListener('click', this.clickListenerOnce, { once: true })
     }
+    self.addEventListener('beforeunload', this.beforeunloadListener)
   }
 
   disconnectedCallback () {
@@ -75,6 +77,7 @@ export default class BreathingBubble extends Shadow() {
     this.removeEventListener('dblclick', this.dblclickListener)
     this.end.removeEventListener('click', this.clickListener)
     this.bubble.removeEventListener('animationiteration', this.animationiterationListener)
+    self.removeEventListener('beforeunload', this.beforeunloadListener)
     this.sound.pause()
   }
 
