@@ -58,7 +58,7 @@ export default class RecoveryBreath extends RetentionTime {
 
   nextPage () {
     // don't automatically trigger next round on every fourth round
-    if (Number(this.round)%4 !== 0) {
+    if (Number(this.round) % 4 !== 0) {
       location.hash = '/breathing'
     } else {
       this.finishPage()

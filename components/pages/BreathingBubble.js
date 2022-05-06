@@ -45,7 +45,7 @@ export default class BreathingBubble extends Shadow() {
       if (this.counter >= this.counterMin) this.instructionTwo.hidden = false
       if (this.counter > this.counterMax) this.nextPage()
     }
-    this.beforeunloadListener = event => this.round = 0
+    this.beforeunloadListener = event => (this.round = 0)
   }
 
   connectedCallback (newRound = true) {
