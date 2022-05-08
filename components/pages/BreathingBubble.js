@@ -159,7 +159,8 @@ export default class BreathingBubble extends Shadow() {
         font-size: 2rem;
       }
       :host > .instruction-one > a {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
+        font-style: italic;
       }
       :host > .title > .round-counter, :host > .instruction-one, :host > .title > .end {
         text-transform: uppercase;
@@ -254,7 +255,7 @@ export default class BreathingBubble extends Shadow() {
         <div class=round-counter>Round ${this.round}</div>
         <div class=end>Finish [ctrl]</div>
       </div>
-      <div class=instruction-one>Take 30 deep breaths<br><a href=https://www.wimhofmethod.com/breathing-techniques target=_blank><span>👉</span> About <span>👈</span></a></div>
+      <div class=instruction-one>Take 30 deep breaths<br><a href=https://www.wimhofmethod.com/breathing-techniques target=_blank><span>👉</span> Further Instructions <span>👈</span></a></div>
       <div class=bubble>${this.counter}</div>
       <div class="instruction-two init">Press space to start breathing</div>
       <div class=instruction-two>Tap twice to go into retention [space]</div>
