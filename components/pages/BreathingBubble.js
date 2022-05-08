@@ -158,6 +158,9 @@ export default class BreathingBubble extends Shadow() {
         grid-area: instruction-one;
         font-size: 2rem;
       }
+      :host > .instruction-one > a {
+        font-size: 1.7rem;
+      }
       :host > .title > .round-counter, :host > .instruction-one, :host > .title > .end {
         text-transform: uppercase;
       }
