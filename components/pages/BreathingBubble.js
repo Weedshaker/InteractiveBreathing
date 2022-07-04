@@ -1,5 +1,5 @@
 // @ts-check
-import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.js'
+import { WakeLock } from '../../event-driven-web-components-prototypes/src/WakeLock.js'
 
 /* global location */
 /* global self */
@@ -12,7 +12,7 @@ import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.
  * @class BreathingBubble
  * @type {CustomElementConstructor}
  */
-export default class BreathingBubble extends Shadow() {
+export default class BreathingBubble extends WakeLock() {
   constructor (...args) {
     super(...args)
     this.animationDelay = 500 // this.counter initial string "GO" disappear animation
@@ -37,6 +37,7 @@ export default class BreathingBubble extends Shadow() {
       setTimeout(() => this.animationiterationListener(), this.animationDelay)
       this.bubble.classList.add('animate')
       this.instructionTwoInit.hidden = true
+      this.requestWakeLock()
     }
     this.animationiterationListener = event => {
       this.counter++
@@ -49,6 +50,7 @@ export default class BreathingBubble extends Shadow() {
   }
 
   connectedCallback (newRound = true) {
+    super.connectedCallback()
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     if (this.shouldComponentRenderHTML()) {
       // @ts-ignore
@@ -72,6 +74,8 @@ export default class BreathingBubble extends Shadow() {
   }
 
   disconnectedCallback () {
+    super.disconnectedCallback()
+    this.releaseWakeLock()
     this.bubble.classList.remove('animate')
     document.removeEventListener('keydown', this.keydownListener)
     this.removeEventListener('dblclick', this.dblclickListener)

@@ -103,5 +103,239 @@
       padding: 0;
     }
   </style>
+  <!-- Background -->
+  <div class=bg>
+    <div class="datouwang">
+      <div class="arms">
+        <div class="arm" style="--scaleX:1;--scaleY:1;--rotate:3;"></div>
+        <div class="arm" style="--scaleX:1;--scaleY:1.1;--rotate:2;"></div>
+        <div class="arm" style="--scaleX:1;--scaleY:1.2;--rotate:1;"></div>
+        <div class="arm" style="--scaleX:-1;--scaleY:1.15;--rotate:0;"></div>
+        <div class="arm" style="--scaleX:-1;--scaleY:1.1;--rotate:0;"></div>
+        <div class="arm" style="--scaleX:-1;--scaleY:1;--rotate:-1;"></div>
+        <div class="arm" style="--scaleX:-1;--scaleY:1.15;--rotate:-2;"></div>
+        <div class="arm" style="--scaleX:.5;--scaleY:1.15;--rotate:-3;"></div>
+      </div>
+      <div class="tentacles">
+        <div class="tentacle"></div>
+        <div class="tentacle"></div>
+        <div class="tentacle"></div>
+        <div class="tentacle"></div>
+        <div class="tentacle"></div>
+      </div>
+      <div class="guts"></div>
+      <div class="body">
+        <div class="base"></div>
+      </div>
+    </div>
+  </div>
+  <style>
+    @keyframes swim {
+      20% {
+        transform: translateY(3em);
+      }
+      45% {
+        transform: translateY(-3em);
+      }
+      100% {
+        transform: translateY(3em);
+      }
+    }
+    @keyframes squash {
+      20% {
+        transform: scaleY(0.9);
+      }
+      40% {
+        transform: scaleY(1.1);
+      }
+      60% {
+        transform: scaleY(0.9);
+      }
+    }
+    @keyframes wave {
+      30% {
+        transform: scaleX(var(--scaleX)) scaleY(var(--scaleY)) rotate(calc(var(--rotate) * -1deg));
+      }
+    }
+    .bg {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      opacity: 0.5;
+    }
+    .datouwang {
+      position: absolute;
+      filter: drop-shadow(0 0 1em cyan);
+      animation: swim 25s ease-in-out infinite;
+      transform-origin: 50% 0;
+      transform: translateY(3em);
+      width: 200px;
+    }
+    .datouwang .arms {
+      transform-origin: 50% 0;
+      animation: squash 25s ease-in-out infinite;
+    }
+    .datouwang .arms .arm {
+      position: absolute;
+      width: 2em;
+      height: 6em;
+      top: 3em;
+      border-radius: 50%;
+      border-left: 1em solid #ccffff;
+      border-bottom: 0.3em solid transparent;
+      transform-origin: 50% 0;
+      opacity: 0.4;
+      transform: scaleX(var(--scaleX)) scaleY(var(--scaleY)) rotate(calc(var(--rotate) * 1deg));
+      animation: wave 25s ease-in-out infinite;
+    }
+    .datouwang .arms .arm:before {
+      content: '';
+      position: absolute;
+      width: 1.6em;
+      height: 3em;
+      top: 5.1em;
+      left: -1.5em;
+      border-radius: 50%;
+      border-right: 0.6em solid #ccffff;
+      border-top: 0.3em solid transparent;
+      border-bottom: 0.3em solid transparent;
+      transform: rotate(-10.4deg);
+    }
+    .datouwang .arms .arm:after {
+      content: '';
+      position: absolute;
+      width: 1em;
+      height: 2em;
+      top: 7.5em;
+      left: -0.05em;
+      border-radius: 50%;
+      border-top: 0.4em solid transparent;
+      border-left: 0.4em solid #ccffff;
+      transform: rotate(10deg);
+    }
+    .datouwang .arms .arm:nth-child(1) {
+      left: 2.2em;
+    }
+    .datouwang .arms .arm:nth-child(2) {
+      left: 3em;
+    }
+    .datouwang .arms .arm:nth-child(3) {
+      left: 3.6em;
+    }
+    .datouwang .arms .arm:nth-child(4) {
+      left: 2.3em;
+    }
+    .datouwang .arms .arm:nth-child(5) {
+      left: 3.8em;
+    }
+    .datouwang .arms .arm:nth-child(6) {
+      left: 4.5em;
+    }
+    .datouwang .arms .arm:nth-child(7) {
+      left: 3em;
+    }
+    .datouwang .arms .arm:nth-child(8) {
+      left: 4.5em;
+    }
+    .datouwang .tentacles {
+      animation: squash 25s ease-in-out infinite;
+    }
+    .datouwang .tentacles .tentacle {
+      position: absolute;
+      top: 4em;
+      width: 10em;
+      height: 8em;
+      border: 1px solid rgba(0, 255, 255, 0.6);
+      border-bottom: none;
+      border-top: none;
+      border-bottom-left-radius: 10% 50%;
+      border-bottom-right-radius: 10% 50%;
+      border-top-left-radius: 20% 50%;
+      border-top-right-radius: 20% 50%;
+    }
+    .datouwang .tentacles .tentacle:nth-child(2) {
+      transform: scaleX(0.8);
+    }
+    .datouwang .tentacles .tentacle:nth-child(3) {
+      transform: scaleX(0.6);
+    }
+    .datouwang .tentacles .tentacle:nth-child(4) {
+      transform: scaleX(0.4);
+    }
+    .datouwang .tentacles .tentacle:nth-child(5) {
+      transform: scaleX(0.2);
+    }
+    .datouwang .guts {
+      width: 4em;
+      height: 4em;
+      background: white;
+      position: absolute;
+      left: 3em;
+      top: 1em;
+      border-radius: 50%;
+      box-shadow: -1.5em 0.7em 0 -0.8em white, -1.7em -0.5em 0 -1.4em white, 1.8em -0.1em 0 -1.3em white, 1em 1em 0 -0.6em white, -0.4em 1.8em 0 -1.3em white, 1.4em -1em 0 -1.5em white, -1.3em 1.8em 0 -1.5em white;
+      filter: drop-shadow(0 0 0.5em rgba(255, 255, 255, 0.5));
+    }
+    .datouwang .body {
+      background: cyan;
+      width: 10em;
+      height: 5em;
+      border-top-left-radius: 50% 100%;
+      border-top-right-radius: 50% 100%;
+      position: relative;
+      opacity: 0.65;
+      box-shadow: inset 0 0.2em 0 cyan, inset 0 0.4em 0 hsla(0, 0%, 100%, 0.6);
+      transform-origin: 50% 50%;
+      animation: squash 25s ease-in-out infinite;
+    }
+    .datouwang .body .base {
+      position: absolute;
+      width: 3em;
+      height: 1.5em;
+      background: cyan;
+      bottom: -1.5em;
+      border-bottom-left-radius: 50% 100%;
+      border-bottom-right-radius: 50% 100%;
+      box-shadow: 3.5em 0 0 cyan, 7em 0 0 cyan;
+    }
+    .datouwang .body .base:after {
+      content: '';
+      position: absolute;
+      width: 3em;
+      height: 1em;
+      left: 1.75em;
+      top: -0.25em;
+      background: radial-gradient(circle at 50% 120%, rgba(0, 255, 255, 0) 0, rgba(0, 255, 255, 0) 25%, cyan 10%, cyan 100%);
+    }
+    .datouwang .body .base:before {
+      content: '';
+      position: absolute;
+      width: 3em;
+      height: 1em;
+      left: 5.25em;
+      top: -0.25em;
+      background: radial-gradient(circle at 50% 120%, rgba(0, 255, 255, 0) 0, rgba(0, 255, 255, 0) 25%, cyan 10%, cyan 100%);
+    }
+  </style>
+  <script>
+    function randomNumber(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    const datouwang = document.querySelector('.datouwang')
+    for (let i = 0; i < 20; i++) {
+      const newDatouwang = datouwang.cloneNode(true)
+      newDatouwang.style.left = i * 5 + '%'
+      newDatouwang.style.top = randomNumber(0, 95) + '%'
+      newDatouwang.style.fontSize = randomNumber(0.5, 2) + 'rem'
+      newDatouwang.style.animationDuration = randomNumber(10, 30) + 's'
+      newDatouwang.style.animationDelay = randomNumber(0, 300) + 'ms'
+      newDatouwang.style.opacity = randomNumber(0.1, 0.5)
+      document.querySelector('.bg').appendChild(newDatouwang)
+    }
+    datouwang.remove()
+  </script>
 </body>
 </html>
