@@ -177,10 +177,10 @@ export default class BreathingBubble extends WakeLock() {
         align-items: center;
         align-self: center;
         background-color: var(--theme-color);
-        background: linear-gradient(0deg, rgba(13,59,104,0.8533788515406162) 0%, rgba(13,59,104,0.7525385154061625) 25%, rgba(255,255,255,1) 100%);
-        border: 1rem solid var(--theme-color);
+        background: linear-gradient(0deg, rgba(13,59,104,0.8) 0%, rgba(13,59,104,0.7) 25%, rgba(255,255,255,0.8) 100%);
+        border: 0.1rem solid var(--theme-color);
         border-radius: 50%;
-        box-shadow: 0 2px 8px 0 var(--theme-color);
+        box-shadow: 0 1px 20px 0 var(--theme-color);
         box-sizing: border-box;
         cursor: pointer;
         display: flex;
@@ -225,12 +225,12 @@ export default class BreathingBubble extends WakeLock() {
           transform: scale(0.01);
         }
         50%{
-          border-width: 1rem;
+          border-width: 0.1rem;
           font-size: var(--font-size-100);
           transform: scale(1);
         }
         60% {
-          border-width: 1rem;
+          border-width: 0.1rem;
           font-size: var(--font-size-100);
           transform: scale(1);
         }
