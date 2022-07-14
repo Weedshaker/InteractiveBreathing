@@ -159,7 +159,7 @@ export default class FurtherInstructions extends Shadow() {
           <li>Let go and hold your breath as long as possible or comfortable. Focus on your heartbeat and feel the sensations.</li>
           <li>Take a deep breath in and hold an other 15s.</li>
           <li>Repeat at least three times.</li>
-          <li>Meditate! See the colors, shapes and hear the sounds! Letting go your feeling!</li>
+          <li>Meditate! See the colors, shapes and hear the sounds of the universe! Let go your feeling!</li>
         </ul>
       </div>
     `
