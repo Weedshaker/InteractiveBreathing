@@ -24,13 +24,13 @@ export default class FurtherInstructions extends Shadow() {
   connectedCallback (newRound = true) {
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     this.renderHTML()
-    this.end.addEventListener('click', this.clickListener)
+    this.addEventListener('click', this.clickListener)
     document.addEventListener('keydown', this.keydownListener)
   }
 
   disconnectedCallback () {
     document.removeEventListener('keydown', this.keydownListener)
-    this.end.removeEventListener('click', this.clickListener)
+    this.removeEventListener('click', this.clickListener)
   }
 
   /**
@@ -141,14 +141,14 @@ export default class FurtherInstructions extends Shadow() {
   /**
    * renders the html
    *
-   * @return {Promise<void>}
+   * @return {void}
    */
   renderHTML () {
     this.html = /* html */`
       <div class=title>
         <iframe class=gh-button src="https://ghbtns.com/github-btn.html?user=Weedshaker&amp;repo=InteractiveBreathing&amp;type=star&amp;count=true&amp;size=large" scrolling="0" width="160px" height="30px" frameborder="0"></iframe>
         <div>Further Instructions</div>
-        <div class=end>Start Over [ctrl]</div>
+        <div class=end>Start B [ctrl]</div>
       </div>
       <div class=instruction-one><a class=further-instructions href=https://www.wimhofmethod.com/breathing-techniques target=_blank>
         <span>👉</span> Instruction by Wim Hof <span>👈</span></a>
