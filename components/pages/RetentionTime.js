@@ -85,7 +85,7 @@ export default class RetentionTime extends BreathingBubble {
         <div class=round-counter>Round ${this.round}</div>
         <div class=end>Finish [ctrl]</div>
       </div>
-      <div class=instruction-one>Let go and hold</div>
+      <div class=instruction-one>Let go and hold your breath <br><q>as long as possible or comfortable</q></div>
       <div class=bubble>0:00</div>
       <div class="instruction-two init">Tap twice to go into recovery breath [space]</div>
       <div class=instruction-two></div>

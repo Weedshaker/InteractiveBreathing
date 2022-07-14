@@ -64,6 +64,11 @@
         'name': 'result-overview',
         'path': '../../components/pages/ResultOverview.js',
         'regExp': '/^#\/result/'
+      },
+      {
+        'name': 'further-instructions',
+        'path': '../../components/pages/FurtherInstructions.js',
+        'regExp': '/^#\/instructions/'
       }
     ]" hide="true"></c-router>
   </c-local-storage>
@@ -169,10 +174,12 @@
     .datouwang {
       position: absolute;
       filter: drop-shadow(0 0 1em cyan);
-      animation: swim 25s ease-in-out infinite;
       transform-origin: 50% 0;
       transform: translateY(3em);
       width: 200px;
+    }
+    .datouwang:not(.no-swim) {
+      animation: swim 25s ease-in-out infinite;
     }
     .datouwang .arms {
       transform-origin: 50% 0;
@@ -274,7 +281,7 @@
       background: white;
       position: absolute;
       left: 3em;
-      top: 1em;
+      top: 0.9em;
       border-radius: 50%;
       box-shadow: -1.5em 0.7em 0 -0.8em white, -1.7em -0.5em 0 -1.4em white, 1.8em -0.1em 0 -1.3em white, 1em 1em 0 -0.6em white, -0.4em 1.8em 0 -1.3em white, 1.4em -1em 0 -1.5em white, -1.3em 1.8em 0 -1.5em white;
       filter: drop-shadow(0 0 0.5em rgba(255, 255, 255, 0.5));
@@ -296,7 +303,7 @@
       width: 3em;
       height: 1.5em;
       background: cyan;
-      bottom: -1.5em;
+      bottom: -1.3em;
       border-bottom-left-radius: 50% 100%;
       border-bottom-right-radius: 50% 100%;
       box-shadow: 3.5em 0 0 cyan, 7em 0 0 cyan;
@@ -335,7 +342,61 @@
       newDatouwang.style.opacity = randomNumber(0.1, 0.5)
       document.querySelector('.bg').appendChild(newDatouwang)
     }
-    datouwang.remove()
+    datouwang.hidden = true
+  </script>
+  <!-- cursor -->
+  <style>
+    *, a {
+      cursor: none;
+    }
+    .custom-cursor {
+      position: fixed;
+      z-index: 1001;
+      top: 2rem;
+      left: 2rem;
+      width: 15px;
+      height: 15px;
+      pointer-events: none;
+    }
+    .custom-cursor.click {
+      animation: cursor-click 800ms normal ease-in-out;
+    }
+    @keyframes cursor-click {
+      0%,
+      100% {
+        transform: scale(0.75) translate(0.75rem, 2.25rem);
+      }
+    }
+  </style>
+  <script>
+    const datouwangCursor = document.querySelector('.datouwang').cloneNode(true)
+    datouwangCursor.classList.add('custom-cursor')
+    datouwangCursor.classList.add('no-swim')
+    datouwangCursor.style.fontSize = '0.5rem'
+    datouwangCursor.style.filter = 'grayscale(90%) drop-shadow(2px 2px rgba(69, 16, 180, 0.5))'
+    datouwangCursor.style.transition = 'top 0.1s, left 0.1s, transform 0.5s ease-out'
+    document.body.appendChild(datouwangCursor)
+    datouwangCursor.hidden = false
+    const cursor = document.querySelector('.custom-cursor')
+    self.addEventListener('mousedown', event => {
+      if (!cursor.classList.contains('click')) cursor.classList.add('click')
+    })
+    self.addEventListener('mouseup', event => {
+      if (cursor.classList.contains('click')) cursor.classList.remove('click')
+    })
+    let _prevX = 0, _prevY = 0, _prevDirectionLeft
+    self.addEventListener('mousemove', event => {
+      const x = event.pageX - cursor.offsetWidth / 2
+      const y = event.pageY - cursor.offsetHeight / 2
+      /*if (_prevX !== x && _prevDirectionLeft !== _prevX < x) {
+        _prevDirectionLeft = _prevX < x
+        cursor.style.transform = _prevDirectionLeft ? 'rotate(7.5deg)' : 'rotate(-7.5deg)'
+      }*/
+      const left = `calc(${(_prevX = x)}px - 1.75rem)`
+      const top = `calc(${(_prevY = y)}px - 2.25rem)`
+      if (cursor.style.left !== left) cursor.style.left = left
+      if (cursor.style.top !== top) cursor.style.top = top
+    })
   </script>
 </body>
 </html>

@@ -36,6 +36,8 @@ export default class BreathingBubble extends WakeLock() {
       this.counter = 0
       setTimeout(() => this.animationiterationListener(), this.animationDelay)
       this.bubble.classList.add('animate')
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      if (this.furtherInstructions) this.furtherInstructions.classList.add('hidden')
       this.instructionTwoInit.hidden = true
       this.requestWakeLock()
     }
@@ -77,6 +79,7 @@ export default class BreathingBubble extends WakeLock() {
     super.disconnectedCallback()
     this.releaseWakeLock()
     this.bubble.classList.remove('animate')
+    if (this.furtherInstructions) this.furtherInstructions.classList.remove('hidden')
     document.removeEventListener('keydown', this.keydownListener)
     this.removeEventListener('dblclick', this.dblclickListener)
     this.end.removeEventListener('click', this.clickListener)
@@ -131,7 +134,14 @@ export default class BreathingBubble extends WakeLock() {
       }
       :host a {
         color: coral;
+        transition: color 0.3s ease-out;
         text-decoration: none;
+      }
+      *, a {
+        cursor: none;
+      }
+      :host a:hover, :host a:active, :host a:focus {
+        color: darkcyan;
       }
       :host a > span {
         display: inline-block;
@@ -152,19 +162,29 @@ export default class BreathingBubble extends WakeLock() {
       }
       :host > .title > .end {
         color: coral;
-        cursor: pointer;
+        transition: color 0.3s ease-out;
+        /*cursor: pointer;*/
         padding: 0 0 3em 3em;
         position: absolute;
         right: 0;
         top: 0;
       }
+      :host > .title > .end:hover, :host > .title > .end:active, :host > .title > .end:focus {
+        color: darkcyan;
+      }
       :host > .instruction-one {
         grid-area: instruction-one;
         font-size: 2rem;
       }
+      :host > .instruction-one > q {
+        font-size: 1.5rem;
+      }
       :host > .instruction-one > a {
         font-size: 1.5rem;
         font-style: italic;
+      }
+      .further-instructions.hidden {
+        display: none;
       }
       :host > .title > .round-counter, :host > .instruction-one, :host > .title > .end {
         text-transform: uppercase;
@@ -182,7 +202,7 @@ export default class BreathingBubble extends WakeLock() {
         border-radius: 50%;
         box-shadow: 0 1px 20px 0 var(--theme-color);
         box-sizing: border-box;
-        cursor: pointer;
+        /*cursor: pointer;*/
         display: flex;
         font-size: var(--font-size-100);
         font-weight: 500;
@@ -259,7 +279,7 @@ export default class BreathingBubble extends WakeLock() {
         <div class=round-counter>Round ${this.round}</div>
         <div class=end>Finish [ctrl]</div>
       </div>
-      <div class=instruction-one>Take 30 deep breaths<br><a href=https://www.wimhofmethod.com/breathing-techniques target=_blank><span>👉</span> Further Instructions <span>👈</span></a></div>
+      <div class=instruction-one>Take 30 deep breaths<br><a class=further-instructions href=#/instructions><span>👉</span> Further Instructions <span>👈</span></a></div>
       <div class=bubble>${this.counter}</div>
       <div class="instruction-two init">Press space to start breathing</div>
       <div class=instruction-two>Tap twice to go into retention [space]</div>
@@ -312,5 +332,9 @@ export default class BreathingBubble extends WakeLock() {
 
   get sound () {
     return document.querySelector('#breath') || this.root.querySelector('.sound')
+  }
+
+  get furtherInstructions () {
+    return this.root.querySelector('.further-instructions')
   }
 }

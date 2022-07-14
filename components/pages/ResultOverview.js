@@ -86,11 +86,15 @@ export default class ResultOverview extends Shadow() {
       }
       :host > .title > .end {
         color: coral;
-        cursor: pointer;
+        transition: color 0.3s ease-out;
+        /*cursor: pointer;*/
         padding: 0 0 3em 3em;
         position: absolute;
         right: 0;
         top: 0;
+      }
+      :host > .title > .end:hover, :host > .title > .end:active, :host > .title > .end:focus {
+        color: darkcyan;
       }
       :host > .title > * {
         font-weight: bold;
