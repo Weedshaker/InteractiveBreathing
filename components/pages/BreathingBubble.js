@@ -36,7 +36,7 @@ export default class BreathingBubble extends WakeLock() {
       this.counter = 0
       setTimeout(() => this.animationiterationListener(), this.animationDelay)
       this.bubble.classList.add('animate')
-      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen()
       if (this.furtherInstructions) this.furtherInstructions.classList.add('hidden')
       this.instructionTwoInit.hidden = true
       this.requestWakeLock()

@@ -26,6 +26,7 @@ export default class ResultOverview extends Shadow() {
   }
 
   connectedCallback (newRound = true) {
+    if (document.fullscreenElement) document.exitFullscreen()
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     this.renderHTML().then(() => {
       this.end.addEventListener('click', this.clickListener)
@@ -159,7 +160,7 @@ export default class ResultOverview extends Shadow() {
             <div>Results</div>
             <div class=end>Start Over [ctrl]</div>
           </div>
-          <div class=results>${table}</div>
+          <div class=results>${table}<hr>v. beta 1.0.0</div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
       }
