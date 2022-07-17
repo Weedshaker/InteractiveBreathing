@@ -19,18 +19,21 @@ export default class FurtherInstructions extends Shadow() {
       if (event.keyCode === 17) return this.nextPage()
     }
     this.clickListener = event => this.nextPage()
+    this.wimHofClickListener = event => event.stopPropagation()
   }
 
   connectedCallback (newRound = true) {
     if (this.shouldComponentRenderCSS()) this.renderCSS()
-    this.renderHTML()
+    if (this.shouldComponentRenderHTML()) this.renderHTML()
     this.addEventListener('click', this.clickListener)
+    this.root.querySelector('.wim-hof').addEventListener('click', this.wimHofClickListener)
     document.addEventListener('keydown', this.keydownListener)
   }
 
   disconnectedCallback () {
     document.removeEventListener('keydown', this.keydownListener)
     this.removeEventListener('click', this.clickListener)
+    this.root.querySelector('.wim-hof').removeEventListener('click', this.wimHofClickListener)
   }
 
   /**
@@ -40,6 +43,16 @@ export default class FurtherInstructions extends Shadow() {
    */
   shouldComponentRenderCSS () {
     return !this.root.querySelector(`:host > style[_css], ${this.tagName} > style[_css]`)
+  }
+
+  /**
+   * evaluates if a render is necessary
+   *
+   * @return {boolean}
+   */
+  shouldComponentRenderHTML () {
+    // @ts-ignore
+    return !this.root.querySelector('.instruction-one')
   }
 
   /**
@@ -67,14 +80,19 @@ export default class FurtherInstructions extends Shadow() {
         padding: 1em;
         width: 100vw;
       }
+      :host b {
+        font-size: 1.25em;
+      }
       :host a {
         color: coral;
         transition: color 0.3s ease-out;
         text-decoration: none;
       }
+      /*
       *, a {
         cursor: none;
       }
+      */
       :host a:hover, :host a:active, :host a:focus {
         color: darkcyan;
       }
@@ -98,7 +116,7 @@ export default class FurtherInstructions extends Shadow() {
       :host > .title > .end {
         color: coral;
         transition: color 0.3s ease-out;
-        /*cursor: pointer;*/
+        cursor: pointer;
         padding: 0 0 3em 3em;
         position: absolute;
         right: 0;
@@ -135,6 +153,9 @@ export default class FurtherInstructions extends Shadow() {
         list-style: decimal;
         text-align: left;
       }
+      :host ul.add li {
+        list-style: disc;
+      }
     `
   }
 
@@ -144,22 +165,29 @@ export default class FurtherInstructions extends Shadow() {
    * @return {void}
    */
   renderHTML () {
+    this.html = ''
     this.html = /* html */`
       <div class=title>
         <iframe class=gh-button src="https://ghbtns.com/github-btn.html?user=Weedshaker&amp;repo=InteractiveBreathing&amp;type=star&amp;count=true&amp;size=large" scrolling="0" width="160px" height="30px" frameborder="0"></iframe>
         <div>Further Instructions</div>
-        <div class=end>Start B [ctrl]</div>
+        <div class=end>Start Breathing [ctrl]</div>
       </div>
-      <div class=instruction-one><a class=further-instructions href=https://www.wimhofmethod.com/breathing-techniques target=_blank>
-        <span>👉</span> Instruction by Wim Hof <span>👈</span></a>
+      <div class=instruction-one>
+        <a class=wim-hof href=https://www.wimhofmethod.com/breathing-techniques target=_blank>
+          <span>👉</span> Instruction by Wim Hof <span>👈</span>
+        </a>
         <br>
         <br>
         <ul>
-          <li>Breath 30 times... relax, follow your breath.<br>(Breathing In: Your breath starts at your feet, lower belly or Muladhara [VAM] and flows up)<br>(Breathing Out: Your breath starts at your head, Ajna [OM] or Sahasrara and flows down)</li>
-          <li>Let go and hold your breath as long as possible or comfortable. Focus on your heartbeat and feel the sensations.</li>
-          <li>Take a deep breath in and hold an other 15s.</li>
-          <li>Repeat at least three times.</li>
+          <li><b>breathing:</b> Breath 30 times... relax, follow your breath.<br>(Breathing In: Your breath starts at your feet, lower belly or Muladhara [VAM] and flows up)<br>(Breathing Out: Your breath starts at your head, Ajna [OM] or Sahasrara and flows down)</li>
+          <li><b>retention:</b> Let go and hold your breath as long as possible or comfortable. Focus on your heartbeat and feel the sensations.</li>
+          <li><b>recovery:</b>Take a deep breath in and hold an other 15s.</li>
+        </ul>
+        <br>
+        <ul class=add>
+          <li>Repeat the three steps above at least three times.</li>
           <li>Meditate! See the colors, shapes and hear the sounds of the universe! Let go your feeling!</li>
+          <li>Bring this level of awareness and relaxation into your daily life and contemplate during your daily activity by using your breath as an anchor!</li>
         </ul>
       </div>
     `

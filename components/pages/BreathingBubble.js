@@ -137,9 +137,11 @@ export default class BreathingBubble extends WakeLock() {
         transition: color 0.3s ease-out;
         text-decoration: none;
       }
+      /*
       *, a {
         cursor: none;
       }
+      */
       :host a:hover, :host a:active, :host a:focus {
         color: darkcyan;
       }
@@ -163,7 +165,7 @@ export default class BreathingBubble extends WakeLock() {
       :host > .title > .end {
         color: coral;
         transition: color 0.3s ease-out;
-        /*cursor: pointer;*/
+        cursor: pointer;
         padding: 0 0 3em 3em;
         position: absolute;
         right: 0;
@@ -202,7 +204,7 @@ export default class BreathingBubble extends WakeLock() {
         border-radius: 50%;
         box-shadow: 0 1px 20px 0 var(--theme-color);
         box-sizing: border-box;
-        /*cursor: pointer;*/
+        cursor: pointer;
         display: flex;
         font-size: var(--font-size-100);
         font-weight: 500;
