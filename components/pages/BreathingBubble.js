@@ -38,14 +38,14 @@ export default class BreathingBubble extends WakeLock() {
       this.bubble.classList.add('animate')
       if (!document.fullscreenElement) document.documentElement.requestFullscreen()
       if (this.furtherInstructions) this.furtherInstructions.classList.add('hidden')
-      this.instructionTwoInit.hidden = true
+      this.instructionTwoInit.setAttribute('hidden', '')
       this.requestWakeLock()
     }
     this.animationiterationListener = event => {
       this.counter++
       this.bubble.textContent = this.counter
       this.startSound()
-      if (this.counter >= this.counterMin) this.instructionTwo.hidden = false
+      if (this.counter >= this.counterMin) this.instructionTwo.removeAttribute('hidden')
       if (this.counter > this.counterMax) this.nextPage()
     }
     this.beforeunloadListener = event => (this.round = 0)
@@ -61,8 +61,8 @@ export default class BreathingBubble extends WakeLock() {
       if (newRound) this.round = Number(this.round) + 1
       this.renderHTML()
     }
-    this.instructionTwoInit.hidden = false
-    this.instructionTwo.hidden = true
+    this.instructionTwoInit.removeAttribute('hidden')
+    this.instructionTwo.setAttribute('hidden', '')
     document.addEventListener('keydown', this.keydownListener)
     this.addEventListener('dblclick', this.dblclickListener)
     this.end.addEventListener('click', this.clickListener)
