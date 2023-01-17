@@ -38,14 +38,12 @@ export default class BreathingBubble extends WakeLock() {
       this.bubble.classList.add('animate')
       if (!document.fullscreenElement) document.documentElement.requestFullscreen()
       if (this.furtherInstructions) this.furtherInstructions.classList.add('hidden')
-      this.instructionTwoInit.classList.add('hidden')
       this.requestWakeLock()
     }
     this.animationiterationListener = event => {
       this.counter++
       this.bubble.textContent = this.counter
       this.startSound()
-      if (this.counter >= this.counterMin) this.instructionTwo.classList.remove('hidden')
       if (this.counter > this.counterMax) this.nextPage()
     }
     this.beforeunloadListener = event => (this.round = 0)
@@ -61,8 +59,7 @@ export default class BreathingBubble extends WakeLock() {
       if (newRound) this.round = Number(this.round) + 1
       this.renderHTML()
     }
-    this.instructionTwoInit.classList.remove('hidden')
-    this.instructionTwo.classList.add('hidden')
+
     document.addEventListener('keydown', this.keydownListener)
     this.addEventListener('dblclick', this.dblclickListener)
     this.end.addEventListener('click', this.clickListener)
@@ -224,6 +221,12 @@ export default class BreathingBubble extends WakeLock() {
         font-size: var(--font-size-0);
         transform: scale(0.01);
       }
+      :host > .bubble.animate ~ .instruction-two.init {
+        display: none;
+      }
+      :host > .bubble:not(.animate) ~ .instruction-two:not(.init) {
+        display: none;
+      }
       :host > .instruction-two {
         grid-area: instruction-two;
       }
@@ -322,14 +325,6 @@ export default class BreathingBubble extends WakeLock() {
 
   get bubble () {
     return this.root.querySelector('.bubble')
-  }
-
-  get instructionTwoInit () {
-    return this.root.querySelector('.instruction-two.init')
-  }
-
-  get instructionTwo () {
-    return this.root.querySelector('.instruction-two:not(.init)')
   }
 
   get sound () {
