@@ -160,7 +160,7 @@ export default class ResultOverview extends Shadow() {
             <div>Results</div>
             <div class=end>Start Over [ctrl]</div>
           </div>
-          <div class=results>${table}<hr>v. beta 1.0.1</div>
+          <div class=results>${table}<hr>v. beta 1.0.2</div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
       }

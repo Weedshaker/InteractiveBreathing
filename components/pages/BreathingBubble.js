@@ -38,14 +38,14 @@ export default class BreathingBubble extends WakeLock() {
       this.bubble.classList.add('animate')
       if (!document.fullscreenElement) document.documentElement.requestFullscreen()
       if (this.furtherInstructions) this.furtherInstructions.classList.add('hidden')
-      this.instructionTwoInit.setAttribute('hidden', '')
+      this.instructionTwoInit.classList.add('hidden')
       this.requestWakeLock()
     }
     this.animationiterationListener = event => {
       this.counter++
       this.bubble.textContent = this.counter
       this.startSound()
-      if (this.counter >= this.counterMin) this.instructionTwo.removeAttribute('hidden')
+      if (this.counter >= this.counterMin) this.instructionTwo.classList.remove('hidden')
       if (this.counter > this.counterMax) this.nextPage()
     }
     this.beforeunloadListener = event => (this.round = 0)
@@ -61,8 +61,8 @@ export default class BreathingBubble extends WakeLock() {
       if (newRound) this.round = Number(this.round) + 1
       this.renderHTML()
     }
-    this.instructionTwoInit.removeAttribute('hidden')
-    this.instructionTwo.setAttribute('hidden', '')
+    this.instructionTwoInit.classList.remove('hidden')
+    this.instructionTwo.classList.add('hidden')
     document.addEventListener('keydown', this.keydownListener)
     this.addEventListener('dblclick', this.dblclickListener)
     this.end.addEventListener('click', this.clickListener)
@@ -185,7 +185,7 @@ export default class BreathingBubble extends WakeLock() {
         font-size: 1.5rem;
         font-style: italic;
       }
-      .further-instructions.hidden {
+      .hidden {
         display: none;
       }
       :host > .title > .round-counter, :host > .instruction-one, :host > .title > .end {
