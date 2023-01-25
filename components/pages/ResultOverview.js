@@ -73,6 +73,15 @@ export default class ResultOverview extends Shadow() {
         padding: 1em;
         width: 100vw;
       }
+      :host .time2 {
+        color: silver;
+      }
+      :host .time3 {
+        color: gold;
+      }
+      :host .time4, :host .time5, :host .time6, :host .time7, :host .time8, :host .time9, :host .time10 {
+        color: red;
+      }
       :host > * {
         text-align: center;
       }
@@ -111,6 +120,10 @@ export default class ResultOverview extends Shadow() {
       :host > .results > table th {
         text-decoration: underline;
       }
+      :host > .results > a {
+        color: var(--color);
+        text-decoration: none;
+      }
     `
   }
 
@@ -144,7 +157,7 @@ export default class ResultOverview extends Shadow() {
             <th colspan=${colspan}>${key}</th>
           </tr>
           <tr>
-            ${times[key].map((time, i) => /* html */`<td>Round&nbsp;${i + 1}: <b>${time}</b></td>`).join('')}
+            ${times[key].map((time, i) => /* html */`<td>Round&nbsp;${i + 1}: <b class="time${Number(time.split(':')[0])}">${time}</b></td>`).join('')}
           </tr>
         `))
         table = /* html */`
@@ -160,7 +173,7 @@ export default class ResultOverview extends Shadow() {
             <div>Results</div>
             <div class=end>Start Over [ctrl]</div>
           </div>
-          <div class=results>${table}<hr>v. beta 1.0.3</div>
+          <div class=results>${table}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.4</a></div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
       }

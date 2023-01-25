@@ -26,14 +26,14 @@ export default class FurtherInstructions extends Shadow() {
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     if (this.shouldComponentRenderHTML()) this.renderHTML()
     this.addEventListener('click', this.clickListener)
-    this.root.querySelector('.wim-hof').addEventListener('click', this.wimHofClickListener)
+    if (this.root.querySelector('.wim-hof')) this.root.querySelector('.wim-hof').addEventListener('click', this.wimHofClickListener)
     document.addEventListener('keydown', this.keydownListener)
   }
 
   disconnectedCallback () {
     document.removeEventListener('keydown', this.keydownListener)
     this.removeEventListener('click', this.clickListener)
-    this.root.querySelector('.wim-hof').removeEventListener('click', this.wimHofClickListener)
+    if (this.root.querySelector('.wim-hof')) this.root.querySelector('.wim-hof').removeEventListener('click', this.wimHofClickListener)
   }
 
   /**
@@ -169,15 +169,11 @@ export default class FurtherInstructions extends Shadow() {
     this.html = /* html */`
       <div class=title>
         <iframe class=gh-button src="https://ghbtns.com/github-btn.html?user=Weedshaker&amp;repo=InteractiveBreathing&amp;type=star&amp;count=true&amp;size=large" scrolling="0" width="160px" height="30px" frameborder="0"></iframe>
+        <br><br><br>
         <div>Further Instructions</div>
         <div class=end>Start Breathing [ctrl]</div>
       </div>
       <div class=instruction-one>
-        <a class=wim-hof href=https://www.wimhofmethod.com/breathing-techniques target=_blank>
-          <span>👉</span> Instruction by Wim Hof <span>👈</span>
-        </a>
-        <br>
-        <br>
         <ul>
           <li><b>breathing:</b> Breath 30 times... relax, follow your breath.<br>(Breathing In: Your breath starts at your feet, lower belly or Muladhara [VAM] and flows up)<br>(Breathing Out: Your breath starts at your head, Ajna [OM] or Sahasrara and flows down)</li>
           <li><b>retention:</b> Let go and hold your breath as long as possible or comfortable. Focus on your heartbeat and feel the sensations.</li>
@@ -189,6 +185,12 @@ export default class FurtherInstructions extends Shadow() {
           <li>Meditate! See the colors, shapes and hear the sounds of the universe! Let go your feeling!</li>
           <li>Bring this level of awareness and relaxation into your daily life and contemplate during your daily activity by using your breath as an anchor!</li>
         </ul>
+        <br>
+        <a class=wim-hof href=https://www.wimhofmethod.com/breathing-techniques target=_blank>
+          <h3><span>👉</span> Instruction by Wim Hof <span>👈</span></h3>
+        </a>
+        <br>
+        <a href=#/instructions-iframe><h3>A path with heart : a guide through the perils and promises of spiritual life : Page 53 : DEVELOPING A HEALING ATTENTION describes this very well...</h3></a>
       </div>
     `
   }

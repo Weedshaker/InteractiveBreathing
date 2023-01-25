@@ -286,7 +286,7 @@ export default class BreathingBubble extends WakeLock() {
       </div>
       <div class=instruction-one>Take 30 deep breaths<br><a class=further-instructions href=#/instructions><span>👉</span> Further Instructions <span>👈</span></a></div>
       <div class=bubble>${this.counter}</div>
-      <div class="instruction-two init">Press space to start breathing</div>
+      <div class="instruction-two init">Press [space] to start breathing anytime, anywhere in any position or life circumstances.</div>
       <div class=instruction-two>Tap twice to go into retention [space]</div>
       <audio class=sound src="./sound/breath.mp3"></audio>
     `
