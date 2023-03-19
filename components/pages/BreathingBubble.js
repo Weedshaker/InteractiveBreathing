@@ -32,6 +32,18 @@ export default class BreathingBubble extends WakeLock() {
       }
     }
     this.clickListener = event => this.finishPage()
+    this.bgOnClickListener = event => {
+      localStorage.removeItem('bg-off')
+      document.querySelector('.bg').hidden = false
+      this.bgOn.hidden = true
+      this.bgOff.hidden = false
+    }
+    this.bgOffClickListener = event => {
+      localStorage.setItem('bg-off', 'true')
+      document.querySelector('.bg').hidden = true
+      this.bgOn.hidden = false
+      this.bgOff.hidden = true
+    }
     this.clickListenerOnce = event => {
       this.counter = 0
       setTimeout(() => this.animationiterationListener(), this.animationDelay)
@@ -63,6 +75,8 @@ export default class BreathingBubble extends WakeLock() {
     document.addEventListener('keydown', this.keydownListener)
     this.addEventListener('dblclick', this.dblclickListener)
     this.end.addEventListener('click', this.clickListener)
+    this.bgOn.addEventListener('click', this.bgOnClickListener)
+    this.bgOff.addEventListener('click', this.bgOffClickListener)
     this.bubble.addEventListener('animationiteration', this.animationiterationListener)
     if (this.round > 1) {
       this.clickListenerOnce()
@@ -80,6 +94,8 @@ export default class BreathingBubble extends WakeLock() {
     document.removeEventListener('keydown', this.keydownListener)
     this.removeEventListener('dblclick', this.dblclickListener)
     this.end.removeEventListener('click', this.clickListener)
+    this.bgOn.removeEventListener('click', this.bgOnClickListener)
+    this.bgOff.removeEventListener('click', this.bgOffClickListener)
     this.bubble.removeEventListener('animationiteration', this.animationiterationListener)
     self.removeEventListener('beforeunload', this.beforeunloadListener)
     this.sound.pause()
@@ -159,7 +175,7 @@ export default class BreathingBubble extends WakeLock() {
         grid-area: title;
         position: relative;
       }
-      :host > .title > .end {
+      :host > .title > .end, :host > .title > .bg-on, :host > .title > .bg-off {
         color: coral;
         transition: color 0.3s ease-out;
         cursor: pointer;
@@ -168,7 +184,13 @@ export default class BreathingBubble extends WakeLock() {
         right: 0;
         top: 0;
       }
-      :host > .title > .end:hover, :host > .title > .end:active, :host > .title > .end:focus {
+      :host > .title > .bg-on, :host > .title > .bg-off {
+        left: 0;
+        right: auto;
+      }
+      :host > .title > .end:hover, :host > .title > .end:active, :host > .title > .end:focus,
+      :host > .title > .bg-on:hover, :host > .title > .bg-on:active, :host > .title > .bg-on:focus,
+      :host > .title > .bg-off:hover, :host > .title > .bg-off:active, :host > .title > .bg-off:focus {
         color: darkcyan;
       }
       :host > .instruction-one {
@@ -281,6 +303,8 @@ export default class BreathingBubble extends WakeLock() {
     this.html = ''
     this.html = /* html */`
       <div class=title>
+        <div class="bg-off">Turn background off!</div>
+        <div class="bg-on">Turn background on!</div>
         <div class=round-counter>Round ${this.round}</div>
         <div class=end>Finish [ctrl]</div>
       </div>
@@ -290,6 +314,8 @@ export default class BreathingBubble extends WakeLock() {
       <div class=instruction-two>Tap twice to go into retention [space]</div>
       <audio class=sound src="./sound/breath.mp3"></audio>
     `
+    this.bgOn.hidden = !localStorage.getItem('bg-off')
+    this.bgOff.hidden = !!localStorage.getItem('bg-off')
   }
 
   nextPage () {
@@ -321,6 +347,14 @@ export default class BreathingBubble extends WakeLock() {
 
   get end () {
     return this.root.querySelector('.end')
+  }
+
+  get bgOn () {
+    return this.root.querySelector('.bg-on')
+  }
+
+  get bgOff () {
+    return this.root.querySelector('.bg-off')
   }
 
   get bubble () {

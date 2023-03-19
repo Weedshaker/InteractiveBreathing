@@ -173,7 +173,7 @@ export default class ResultOverview extends Shadow() {
             <div>Results</div>
             <div class=end>Start Over [ctrl]</div>
           </div>
-          <div class=results>${table}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.4</a></div>
+          <div class=results>${table}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.5</a></div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
       }
