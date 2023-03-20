@@ -75,8 +75,8 @@ export default class BreathingBubble extends WakeLock() {
     document.addEventListener('keydown', this.keydownListener)
     this.addEventListener('dblclick', this.dblclickListener)
     this.end.addEventListener('click', this.clickListener)
-    this.bgOn.addEventListener('click', this.bgOnClickListener)
-    this.bgOff.addEventListener('click', this.bgOffClickListener)
+    if (this.bgOn) this.bgOn.addEventListener('click', this.bgOnClickListener)
+    if (this.bgOff) this.bgOff.addEventListener('click', this.bgOffClickListener)
     this.bubble.addEventListener('animationiteration', this.animationiterationListener)
     if (this.round > 1) {
       this.clickListenerOnce()
@@ -94,8 +94,8 @@ export default class BreathingBubble extends WakeLock() {
     document.removeEventListener('keydown', this.keydownListener)
     this.removeEventListener('dblclick', this.dblclickListener)
     this.end.removeEventListener('click', this.clickListener)
-    this.bgOn.removeEventListener('click', this.bgOnClickListener)
-    this.bgOff.removeEventListener('click', this.bgOffClickListener)
+    if (this.bgOn) this.bgOn.removeEventListener('click', this.bgOnClickListener)
+    if (this.bgOff) this.bgOff.removeEventListener('click', this.bgOffClickListener)
     this.bubble.removeEventListener('animationiteration', this.animationiterationListener)
     self.removeEventListener('beforeunload', this.beforeunloadListener)
     this.sound.pause()
@@ -187,6 +187,7 @@ export default class BreathingBubble extends WakeLock() {
       :host > .title > .bg-on, :host > .title > .bg-off {
         left: 0;
         right: auto;
+        padding: 0 3em 3em 0;
       }
       :host > .title > .end:hover, :host > .title > .end:active, :host > .title > .end:focus,
       :host > .title > .bg-on:hover, :host > .title > .bg-on:active, :host > .title > .bg-on:focus,
@@ -316,6 +317,7 @@ export default class BreathingBubble extends WakeLock() {
     `
     this.bgOn.hidden = !localStorage.getItem('bg-off')
     this.bgOff.hidden = !!localStorage.getItem('bg-off')
+    document.querySelector('.bg').hidden = !!localStorage.getItem('bg-off')
   }
 
   nextPage () {
