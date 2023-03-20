@@ -19,6 +19,30 @@ export default class ResultOverview extends Shadow() {
       if (event.keyCode === 17) return this.nextPage()
     }
     this.clickListener = event => this.nextPage()
+    this.removeClickListener = event => {
+     if (typeof event.composedPath === 'function' && event.composedPath()[0] && Array.from(event.composedPath()[0].classList).some(name => name.includes('time')) && self.confirm(`Do you want to delete the Entry: ${event.composedPath()[0].textContent}`)) {
+       const tr = Array.from(event.composedPath()).find(el => el.tagName === 'TR')
+       if (tr && tr.previousElementSibling && tr.previousElementSibling.querySelector('.date')) {
+        new Promise(resolve => this.dispatchEvent(new CustomEvent('removeTime', {
+          /** @type {import("../controllers/LocalStorage.js").RemoveTimeDetail} */
+          detail: {
+            time: event.composedPath()[0].textContent,
+            date: tr.previousElementSibling.textContent.trim(),
+            resolve
+          },
+          bubbles: true,
+          cancelable: true,
+          composed: true
+        }))).then(
+          /**
+           * @param {import("../controllers/LocalStorage.js").TimeObject} times
+           * @return {string}
+           */
+          times => (this.results.innerHTML = this.renderTable(times)))
+        
+      }
+     }
+    }
     this.endedListener = event => {
       // play the 5min sound twice to encourage 10min meditation after done breathing
       if (location.hash === '#/result') this.sound.play()
@@ -30,6 +54,7 @@ export default class ResultOverview extends Shadow() {
     if (this.shouldComponentRenderCSS()) this.renderCSS()
     this.renderHTML().then(() => {
       this.end.addEventListener('click', this.clickListener)
+      this.addEventListener('click', this.removeClickListener)
       this.sound.addEventListener('ended', this.endedListener, { once: true })
       this.sound.volume = 0.5
       this.startSound()
@@ -41,6 +66,7 @@ export default class ResultOverview extends Shadow() {
   disconnectedCallback () {
     document.removeEventListener('keydown', this.keydownListener)
     this.end.removeEventListener('click', this.clickListener)
+    this.removeEventListener('click', this.removeClickListener)
     this.sound.pause()
   }
 
@@ -72,6 +98,9 @@ export default class ResultOverview extends Shadow() {
         height: 100vh;
         padding: 1em;
         width: 100vw;
+      }
+      :host b {
+        cursor: pointer;
       }
       :host .time2 {
         color: silver;
@@ -146,38 +175,47 @@ export default class ResultOverview extends Shadow() {
        * @return {void}
        */
       times => {
-        let colspan = 0
-        for (const key in times) {
-          if (times[key].length > colspan) colspan = times[key].length
-        }
-        let table = ''
-        // @ts-ignore
-        Object.keys(times).sort((a, b) => (new Date(b) - new Date(a))).forEach(key => (table += /* html */`
-          <tr>
-            <th colspan=${colspan}>${key}</th>
-          </tr>
-          <tr>
-            ${times[key].map((time, i) => /* html */`<td>Round&nbsp;${i + 1}: <b class="time${Number(time.split(':')[0])}">${time}</b></td>`).join('')}
-          </tr>
-        `))
-        table = /* html */`
-          <table>
-            <tbody>
-              ${table}
-            </tbody>
-          </table>
-        `
         this.html = /* html */`
           <div class=title>
             <iframe class=gh-button src="https://ghbtns.com/github-btn.html?user=Weedshaker&amp;repo=InteractiveBreathing&amp;type=star&amp;count=true&amp;size=large" scrolling="0" width="160px" height="30px" frameborder="0"></iframe>
             <div>Results</div>
             <div class=end>Start Over [ctrl]</div>
           </div>
-          <div class=results>${table}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.6</a></div>
+          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.7</a></div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
       }
     )
+  }
+
+  /**
+   * renders the result table
+   *
+   * @param {import("../controllers/LocalStorage.js").TimeObject} times
+   * @return {string}
+   */
+  renderTable (times) {
+    let colspan = 0
+    for (const key in times) {
+      if (times[key].length > colspan) colspan = times[key].length
+    }
+    let table = ''
+    // @ts-ignore
+    Object.keys(times).sort((a, b) => (new Date(b) - new Date(a))).forEach(key => (table += /* html */`
+      <tr>
+        <th colspan=${colspan} class=date>${key}</th>
+      </tr>
+      <tr>
+        ${times[key].map((time, i) => /* html */`<td>Round&nbsp;${i + 1}: <b class="time${Number(time.split(':')[0])}">${time}</b></td>`).join('')}
+      </tr>
+    `))
+    return /* html */`
+      <table>
+        <tbody>
+          ${table}
+        </tbody>
+      </table>
+    `
   }
 
   nextPage () {
@@ -192,6 +230,10 @@ export default class ResultOverview extends Shadow() {
 
   get end () {
     return this.root.querySelector('.end')
+  }
+
+  get results () {
+    return this.root.querySelector('.results')
   }
 
   get sound () {

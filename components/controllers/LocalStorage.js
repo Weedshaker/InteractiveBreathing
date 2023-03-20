@@ -16,6 +16,10 @@
  */
 
 /**
+ * @typedef {{ time: string, date: string, resolve?: (times: TimeObject) => void }} RemoveTimeDetail
+ */
+
+/**
  * As a controller, this component becomes a store and organizes events
  * answers promise resolve on 'getTimes'
  *
@@ -44,7 +48,7 @@ export default class Comments extends HTMLElement {
     /**
      * Listens to the event name/typeArg: 'getTimes'
      *
-     * @param {CustomEvent & {detail: GetTimesDetail}} [event=null]
+     * @param {CustomEvent & {detail: GetTimesDetail} | null} [event=null]
      * @return {TimeObject}
      */
     this.getTimesListener = (event = null) => {
@@ -57,15 +61,43 @@ export default class Comments extends HTMLElement {
       if (event && event.detail && typeof event.detail.resolve === 'function') event.detail.resolve(times)
       return times
     }
+
+    /**
+     * Listens to the event name/typeArg: 'removeTime'
+     *
+     * @param {CustomEvent & {detail: RemoveTimeDetail}} event
+     * @return {void}
+     */
+    this.removeTimeListener = event => {
+      if (event && event.detail && event.detail.date && event.detail.time) {
+        let times = this.getTimesListener()
+        const key = event.detail.date
+        if (key in times) {
+          times[key].splice(times[key].indexOf(event.detail.time), 1)
+          if (!times[key].length) delete times[key]
+          localStorage.setItem('times', JSON.stringify(times))
+        }
+        if (typeof event.detail.resolve == 'function') event.detail.resolve(times)
+      }
+    }
   }
 
   connectedCallback () {
+ // @ts-ignore
+     // @ts-ignore
     this.addEventListener('setTime', this.setTimeListener)
+     // @ts-ignore
     this.addEventListener('getTimes', this.getTimesListener)
+     // @ts-ignore
+    this.addEventListener('removeTime', this.removeTimeListener)
   }
 
   disconnectedCallback () {
+     // @ts-ignore
     this.removeEventListener('setTime', this.setTimeListener)
+     // @ts-ignore
     this.removeEventListener('getTimes', this.getTimesListener)
+     // @ts-ignore
+    this.removeEventListener('removeTime', this.removeTimeListener)
   }
 }
