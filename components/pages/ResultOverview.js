@@ -35,13 +35,38 @@ export default class ResultOverview extends Shadow() {
           composed: true
         }))).then(
           /**
-           * @param {import("../controllers/LocalStorage.js").TimeObject} times
-           * @return {string}
+           * @param {import("../controllers/LocalStorage.js").TimeObject | null} times
+           * @return {void}
            */
-          times => (this.results.innerHTML = this.renderTable(times)))
-        
+          times => {
+            if (!times) return
+            this.results.innerHTML = this.renderTable(times)
+            this.undo.hidden = false
+          }
+        )
       }
      }
+    }
+    this.undoClickListener = event => {
+      new Promise(resolve => this.dispatchEvent(new CustomEvent('undoTime', {
+        /** @type {import("../controllers/LocalStorage.js").UndoTimeDetail} */
+        detail: {
+          resolve
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))).then(
+        /**
+        * @param {import("../controllers/LocalStorage.js").TimeObject | null} times
+        * @return {void}
+        */
+        times => {
+          if (!times) return
+          this.results.innerHTML = this.renderTable(times)
+          this.undo.hidden = true
+        }
+      )
     }
     this.endedListener = event => {
       // play the 5min sound twice to encourage 10min meditation after done breathing
@@ -55,6 +80,7 @@ export default class ResultOverview extends Shadow() {
     this.renderHTML().then(() => {
       this.end.addEventListener('click', this.clickListener)
       this.addEventListener('click', this.removeClickListener)
+      this.undo.addEventListener('click', this.undoClickListener)
       this.sound.addEventListener('ended', this.endedListener, { once: true })
       this.sound.volume = 0.5
       this.startSound()
@@ -67,6 +93,7 @@ export default class ResultOverview extends Shadow() {
     document.removeEventListener('keydown', this.keydownListener)
     this.end.removeEventListener('click', this.clickListener)
     this.removeEventListener('click', this.removeClickListener)
+    this.undo.removeEventListener('click', this.undoClickListener)
     this.sound.pause()
   }
 
@@ -92,9 +119,10 @@ export default class ResultOverview extends Shadow() {
         grid-gap: 1em;
         grid-template-areas:
         "title"
+        "undo"
         "results";
         grid-template-columns: 1fr;
-        grid-template-rows: minmax(1em, auto) 1fr;
+        grid-template-rows: minmax(1em, auto) auto 1fr;
         height: 100vh;
         padding: 1em;
         width: 100vw;
@@ -139,6 +167,11 @@ export default class ResultOverview extends Shadow() {
         font-weight: bold;
         text-transform: uppercase;
       }
+      :host > .undo {
+        grid-area: undo;
+        margin: 0 auto;
+        width: max-content;
+      }
       :host > .results {
         grid-area: results;
         overflow: auto;
@@ -181,9 +214,11 @@ export default class ResultOverview extends Shadow() {
             <div>Results</div>
             <div class=end>Start Over [ctrl]</div>
           </div>
-          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.7</a></div>
+          <button class=undo>Undo</button>
+          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.8</a></div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
+        this.undo.hidden = true
       }
     )
   }
@@ -206,7 +241,7 @@ export default class ResultOverview extends Shadow() {
         <th colspan=${colspan} class=date>${key}</th>
       </tr>
       <tr>
-        ${times[key].map((time, i) => /* html */`<td>Round&nbsp;${i + 1}: <b class="time${Number(time.split(':')[0])}">${time}</b></td>`).join('')}
+        ${times[key].map((time, i) => /* html */`<td>Round&nbsp;${i + 1}: <b class="time${Number(time.split(':')[0])}" title="click to delete this entry">${time}</b></td>`).join('')}
       </tr>
     `))
     return /* html */`
@@ -234,6 +269,10 @@ export default class ResultOverview extends Shadow() {
 
   get results () {
     return this.root.querySelector('.results')
+  }
+
+  get undo () {
+    return this.root.querySelector('.undo')
   }
 
   get sound () {

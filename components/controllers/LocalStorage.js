@@ -20,6 +20,10 @@
  */
 
 /**
+ * @typedef {{ resolve?: (times: TimeObject) => void }} UndoTimeDetail
+ */
+
+/**
  * As a controller, this component becomes a store and organizes events
  * answers promise resolve on 'getTimes'
  *
@@ -29,6 +33,9 @@
 export default class Comments extends HTMLElement {
   constructor () {
     super()
+
+    /** @type {string | null} */
+    let lastTimes = null
 
     /**
      * Listens to the event name/typeArg: 'setTime'
@@ -73,11 +80,26 @@ export default class Comments extends HTMLElement {
         let times = this.getTimesListener()
         const key = event.detail.date
         if (key in times) {
+          lastTimes = JSON.stringify(times)
           times[key].splice(times[key].indexOf(event.detail.time), 1)
           if (!times[key].length) delete times[key]
           localStorage.setItem('times', JSON.stringify(times))
         }
         if (typeof event.detail.resolve == 'function') event.detail.resolve(times)
+      }
+    }
+
+    /**
+     * Listens to the event name/typeArg: 'undoTime'
+     *
+     * @param {CustomEvent & {detail: UndoTimeDetail}} event
+     * @return {void}
+     */
+    this.undoTimeListener = event => {
+      if (lastTimes) {
+        localStorage.setItem('times', lastTimes)
+        if (event && event.detail && typeof event.detail.resolve == 'function') event.detail.resolve(JSON.parse(lastTimes))
+        lastTimes = null
       }
     }
   }
@@ -90,6 +112,8 @@ export default class Comments extends HTMLElement {
     this.addEventListener('getTimes', this.getTimesListener)
      // @ts-ignore
     this.addEventListener('removeTime', this.removeTimeListener)
+    // @ts-ignore
+    this.addEventListener('undoTime', this.undoTimeListener)
   }
 
   disconnectedCallback () {
@@ -99,5 +123,7 @@ export default class Comments extends HTMLElement {
     this.removeEventListener('getTimes', this.getTimesListener)
      // @ts-ignore
     this.removeEventListener('removeTime', this.removeTimeListener)
+    // @ts-ignore
+    this.removeEventListener('undoTime', this.undoTimeListener)
   }
 }
