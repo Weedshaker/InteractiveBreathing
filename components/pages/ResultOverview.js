@@ -215,7 +215,7 @@ export default class ResultOverview extends Shadow() {
             <div class=end>Start Over [ctrl]</div>
           </div>
           <button class=undo>Undo</button>
-          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.8</a></div>
+          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.9</a></div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
         this.undo.hidden = true
