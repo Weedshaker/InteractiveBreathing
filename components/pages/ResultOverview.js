@@ -119,14 +119,24 @@ export default class ResultOverview extends Shadow() {
         grid-gap: 1em;
         grid-template-areas:
         "title"
-        "undo"
         "results";
         grid-template-columns: 1fr;
-        grid-template-rows: minmax(1em, auto) auto 1fr;
+        grid-template-rows: minmax(1em, auto) 1fr;
         height: 100vh;
         padding: 1em;
         width: 100vw;
       }
+      :host button {
+        border-radius: 0.5em;
+        border: solid 1px coral;
+        background-color: transparent;
+        color: coral;
+        cursor: pointer;
+      }
+      :host button:hover {
+        border-color: darkcyan;
+        color: darkcyan;
+      } 
       :host b {
         cursor: pointer;
       }
@@ -168,9 +178,9 @@ export default class ResultOverview extends Shadow() {
         text-transform: uppercase;
       }
       :host > .undo {
-        grid-area: undo;
-        margin: 0 auto;
-        width: max-content;
+        position: fixed;
+        bottom: 1em;
+        left: 1em;
       }
       :host > .results {
         grid-area: results;
@@ -215,7 +225,7 @@ export default class ResultOverview extends Shadow() {
             <div class=end>Start Over [ctrl]</div>
           </div>
           <button class=undo>Undo</button>
-          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.9</a></div>
+          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.10</a></div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
         this.undo.hidden = true

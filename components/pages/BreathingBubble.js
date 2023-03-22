@@ -141,12 +141,23 @@ export default class BreathingBubble extends WakeLock() {
         "title"
         "instruction-one"
         "bubble"
-        "instruction-two";
+        "instruction-two"
+        "settings";
         grid-template-columns: 1fr;
-        grid-template-rows: minmax(4em, auto) minmax(1em, auto) 1fr minmax(1em, auto);
+        grid-template-rows: repeat(2, minmax(1em, auto)) 1fr repeat(2, minmax(1em, auto));
         height: 100vh;
         padding: 1em;
         width: 100vw;
+      }
+      :host button {
+        border-radius: 0.5em;
+        border: solid 1px coral;
+        background-color: transparent;
+        color: coral;
+        cursor: pointer;
+      }
+      :host button:hover {
+        border-color: darkcyan;
       }
       :host a {
         color: coral;
@@ -178,7 +189,7 @@ export default class BreathingBubble extends WakeLock() {
         grid-area: title;
         position: relative;
       }
-      :host > .title > .end, :host > .title > .settings {
+      :host > .title > .end {
         color: coral;
         transition: color 0.3s ease-out;
         cursor: pointer;
@@ -187,23 +198,31 @@ export default class BreathingBubble extends WakeLock() {
         right: 0;
         top: 0;
       }
-      :host > .title > .settings {
-        left: 0;
-        right: auto;
-        padding: 0 3em 3em 0;
+      :host > .settings {
+        display: flex;
+        align-items: baseline;
+        gap: 1em;
+        grid-area: settings;
+        color: coral;
+        transition: color 0.3s ease-out;
         text-align: left;
       }
-      :host > .title > .settings > label {
+      :host > .settings > div {
+        width: 100%;
+      }
+      :host > .settings > div > label {
         display: block;
         width: 100%;
         text-align: left;
       }
-      :host > .title > .settings > input {
+      :host > .settings > div > input {
         width: 100%; 
+        cursor: pointer;
+        outline: none;
       }
       :host > .title > .end:hover, :host > .title > .end:active, :host > .title > .end:focus,
-      :host > .title > .settings > .bg-on:hover, :host > .title > .settings > .bg-on:active, :host > .title > .settings > .bg-on:focus,
-      :host > .title > .settings > .bg-off:hover, :host > .title > .settings > .bg-off:active, :host > .title > .settings > .bg-off:focus {
+      :host > .settings > .bg-on:hover, :host > .settings > .bg-on:active, :host > .settings > .bg-on:focus,
+      :host > .settings > .bg-off:hover, :host > .settings > .bg-off:active, :host > .settings > .bg-off:focus {
         color: darkcyan;
       }
       :host > .instruction-one {
@@ -316,19 +335,21 @@ export default class BreathingBubble extends WakeLock() {
     this.html = ''
     this.html = /* html */`
       <div class=title>
-        <div class=settings>
-          <div class="bg-off">Turn background off!</div>
-          <div class="bg-on">Turn background on!</div>
-          <label for="speed">Breath duration:</label>
-          <input type="range" id="speed" name="speed" min="0.25" max="2" value="${this.animationDuration / this.animationDurationOne}" step="0.25">
-        </div>
-        <div class=round-counter>Round ${this.round}</div>
-        <div class=end>Finish [ctrl]</div>
+      <div class=round-counter>Round ${this.round}</div>
+      <div class=end>Finish [ctrl]</div>
       </div>
       <div class=instruction-one>Take 30 deep breaths<br><a class=further-instructions href=#/instructions><span>👉</span> Further Instructions <span>👈</span></a></div>
       <div class=bubble>${this.counter}</div>
       <div class="instruction-two init">Press [space] to start breathing anytime, anywhere in any position or life circumstances.</div>
       <div class=instruction-two>Tap twice to go into retention [space]</div>
+      <div class=settings>
+        <button class="bg-off">Turn background off!</button>
+        <button class="bg-on">Turn background on!</button>
+        <div>
+          <label for="speed">Breath duration:</label>
+          <input type="range" id="speed" name="speed" min="0.25" max="2" value="${this.animationDuration / this.animationDurationOne}" step="0.25">
+        </div>
+      </div>
       <audio class=sound src="./sound/breath.mp3"></audio>
     `
     this.bgOn.hidden = !localStorage.getItem('bg-off')
@@ -381,7 +402,11 @@ export default class BreathingBubble extends WakeLock() {
   }
 
   get input () {
-    return this.root.querySelector('.settings > input')
+    return this.root.querySelector('.settings > div > input')
+  }
+
+  get label () {
+    return this.root.querySelector('.settings > div > label')
   }
 
   get bubble () {
@@ -403,6 +428,7 @@ export default class BreathingBubble extends WakeLock() {
 
   set animationDuration (value) {
     this._animationDuration = value * this.animationDurationOne
+    this.label.textContent = `Breath duration (${value}):`
     this.style.textContent = /* CSS */`
       :host > .bubble.animate {
         animation: bubble ${this._animationDuration}ms ease-in-out var(--animation-delay) infinite;
