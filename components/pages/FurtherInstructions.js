@@ -184,6 +184,7 @@ export default class FurtherInstructions extends Shadow() {
           <li>Repeat the three steps above at least three times.</li>
           <li>Meditate! See the colors, shapes and hear the sounds of the universe! Let go your feeling!</li>
           <li>Bring this level of awareness and relaxation into your daily life and contemplate during your daily activity by using your breath as an anchor!</li>
+          <li>Recommendation: After four rounds the app goes to the result page, automatically. There, listen to the music and meditate until it stops playing. Don't think during that time, it is all irrelevant! Just feel! Focus on your feelings and analyze them as <a href="https://www.amazon.com/Letting-David-Hawkins-M-D-Ph-D/dp/1401945015" target="_blank">David R. Hawkings</a> would explain.</li>
         </ul>
         <br>
         <a class=wim-hof href=https://www.wimhofmethod.com/breathing-techniques target=_blank>

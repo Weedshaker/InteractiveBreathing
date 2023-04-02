@@ -35,7 +35,6 @@ export default class RetentionTime extends BreathingBubble {
 
   connectedCallback () {
     super.connectedCallback(false)
-    this.requestWakeLock()
     this.roundCounter.textContent = `Round ${this.round}`
     this.stopWatch()
     this.startSound()

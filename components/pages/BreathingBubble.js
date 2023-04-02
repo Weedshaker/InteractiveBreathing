@@ -1,5 +1,5 @@
 // @ts-check
-import { WakeLock } from '../../event-driven-web-components-prototypes/src/WakeLock.js'
+import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.js'
 
 /* global location */
 /* global self */
@@ -12,7 +12,7 @@ import { WakeLock } from '../../event-driven-web-components-prototypes/src/WakeL
  * @class BreathingBubble
  * @type {CustomElementConstructor}
  */
-export default class BreathingBubble extends WakeLock() {
+export default class BreathingBubble extends Shadow() {
   constructor (...args) {
     super(...args)
     this.animationDelay = 500 // this.counter initial string "GO" disappear animation
@@ -51,7 +51,11 @@ export default class BreathingBubble extends WakeLock() {
       this.bubble.classList.add('animate')
       if (!document.fullscreenElement) document.documentElement.requestFullscreen()
       if (this.furtherInstructions) this.furtherInstructions.classList.add('hidden')
-      this.requestWakeLock()
+      this.dispatchEvent(new CustomEvent('request-wake-lock', {
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
     }
     this.animationiterationListener = event => {
       this.counter++
@@ -90,7 +94,6 @@ export default class BreathingBubble extends WakeLock() {
 
   disconnectedCallback () {
     super.disconnectedCallback()
-    this.releaseWakeLock()
     this.bubble.classList.remove('animate')
     if (this.furtherInstructions) this.furtherInstructions.classList.remove('hidden')
     document.removeEventListener('keydown', this.keydownListener)

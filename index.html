@@ -38,44 +38,49 @@
   <audio id=littleGong hidden=true src="./sound/littleGong.mp3"></audio>
   <audio id=longGong hidden=true src="./sound/longGong.mp3"></audio>
   <!-- /link rel="preload" as="audio" is unsupported, trying to trigger the browser here to preload  -->
-  <c-local-storage>
-    <c-router mode=hash routes="[
-      {
-        'name': 'breathing-bubble',
-        'path': '../../components/pages/BreathingBubble.js',
-        'regExp': ['/^#\/$/', '/^#\/breathing/'],
-        'attributes': {
-          'info': ''
+  <c-wake-lock info>
+    <c-local-storage>
+      <c-router mode=hash routes="[
+        {
+          'name': 'breathing-bubble',
+          'path': '../../components/pages/BreathingBubble.js',
+          'regExp': ['/^#\/$/', '/^#\/breathing/'],
+          'attributes': {
+            'info': ''
+          }
+        },
+        {
+          'name': 'retention-time',
+          'path': '../../components/pages/RetentionTime.js',
+          'regExp': '/^#\/retention/'
+        },
+        {
+          'name': 'recovery-breath',
+          'path': '../../components/pages/RecoveryBreath.js',
+          'regExp': '/^#\/recovery/'
+        },
+        {
+          'name': 'result-overview',
+          'path': '../../components/pages/ResultOverview.js',
+          'regExp': '/^#\/result/'
+        },
+        {
+          'name': 'further-instructions-iframe',
+          'path': '../../components/pages/FurtherInstructionsIframe.js',
+          'regExp': '/^#\/instructions-iframe/'
+        },
+        {
+          'name': 'further-instructions',
+          'path': '../../components/pages/FurtherInstructions.js',
+          'regExp': '/^#\/instructions/'
         }
-      },
-      {
-        'name': 'retention-time',
-        'path': '../../components/pages/RetentionTime.js',
-        'regExp': '/^#\/retention/'
-      },
-      {
-        'name': 'recovery-breath',
-        'path': '../../components/pages/RecoveryBreath.js',
-        'regExp': '/^#\/recovery/'
-      },
-      {
-        'name': 'result-overview',
-        'path': '../../components/pages/ResultOverview.js',
-        'regExp': '/^#\/result/'
-      },
-      {
-        'name': 'further-instructions-iframe',
-        'path': '../../components/pages/FurtherInstructionsIframe.js',
-        'regExp': '/^#\/instructions-iframe/'
-      },
-      {
-        'name': 'further-instructions',
-        'path': '../../components/pages/FurtherInstructions.js',
-        'regExp': '/^#\/instructions/'
-      }
-    ]"></c-router>
-  </c-local-storage>
+      ]"></c-router>
+    </c-local-storage>
+  </c-wake-lock>
   <script rel=preload type=module>
+    import('./event-driven-web-components-prototypes/src/controllers/WakeLock.js').then(module => {
+      if (!customElements.get('c-wake-lock')) customElements.define('c-wake-lock', module.default)
+    })
     import('./components/controllers/LocalStorage.js').then(module => {
       if (!customElements.get('c-local-storage')) customElements.define('c-local-storage', module.default)
     })

@@ -49,7 +49,7 @@ export default class RecoveryBreath extends RetentionTime {
       </div>
       <div class=instruction-one>Take a deep breath in and hold</div>
       <div class=bubble>0:15</div>
-      <div class="instruction-two init">Tap twice to start next round [space]</div>
+      <div class="instruction-two init">Tap twice to start the next round [space]</div>
       <div class=instruction-two></div>
       <audio class=sound src="./sound/longGong.mp3"></audio>
       <audio class=breath-sound src="./sound/breath.mp3"></audio>
