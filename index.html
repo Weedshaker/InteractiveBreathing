@@ -43,7 +43,7 @@
       <c-router mode=hash routes="[
         {
           'name': 'breathing-bubble',
-          'path': '../../components/pages/BreathingBubble.js',
+          'path': '../../components/pages/BreathingBubble.js?20230402',
           'regExp': ['/^#\/$/', '/^#\/breathing/'],
           'attributes': {
             'info': ''
@@ -51,46 +51,46 @@
         },
         {
           'name': 'retention-time',
-          'path': '../../components/pages/RetentionTime.js',
+          'path': '../../components/pages/RetentionTime.js?20230402',
           'regExp': '/^#\/retention/'
         },
         {
           'name': 'recovery-breath',
-          'path': '../../components/pages/RecoveryBreath.js',
+          'path': '../../components/pages/RecoveryBreath.js?20230402',
           'regExp': '/^#\/recovery/'
         },
         {
           'name': 'result-overview',
-          'path': '../../components/pages/ResultOverview.js',
+          'path': '../../components/pages/ResultOverview.js?20230402',
           'regExp': '/^#\/result/'
         },
         {
           'name': 'further-instructions-iframe',
-          'path': '../../components/pages/FurtherInstructionsIframe.js',
+          'path': '../../components/pages/FurtherInstructionsIframe.js?20230402',
           'regExp': '/^#\/instructions-iframe/'
         },
         {
           'name': 'further-instructions',
-          'path': '../../components/pages/FurtherInstructions.js',
+          'path': '../../components/pages/FurtherInstructions.js?20230402',
           'regExp': '/^#\/instructions/'
         }
       ]"></c-router>
     </c-local-storage>
   </c-wake-lock>
   <script rel=preload type=module>
-    import('./event-driven-web-components-prototypes/src/controllers/WakeLock.js').then(module => {
+    import('./event-driven-web-components-prototypes/src/controllers/WakeLock.js?20230402').then(module => {
       if (!customElements.get('c-wake-lock')) customElements.define('c-wake-lock', module.default)
     })
-    import('./components/controllers/LocalStorage.js').then(module => {
+    import('./components/controllers/LocalStorage.js?20230402').then(module => {
       if (!customElements.get('c-local-storage')) customElements.define('c-local-storage', module.default)
     })
-    import('./event-driven-web-components-router/src/Router.js').then(module => {
+    import('./event-driven-web-components-router/src/Router.js?20230402').then(module => {
       if (!customElements.get('c-router')) customElements.define('c-router', module.default)
     })
     self.Environment = {
       mobileBreakpoint: '600px'
     }
-    navigator.serviceWorker.register('MasterServiceWorker.js', { scope: './' }).then(registration => registration.update()).catch(error => console.error(error))
+    navigator.serviceWorker.register('MasterServiceWorker.js?20230402', { scope: './' }).then(registration => registration.update()).catch(error => console.error(error))
     // iphone fix, which would always keep other sounds locked, if not unlocked through user interaction
     // here grab first user interaction and unlock all audio elements by playing them, later make sure to only use already unlocked elements directly in document body
     document.body.addEventListener('click', event => {

@@ -8,6 +8,8 @@
 [👆 Click and start breathing Bro! 😎🤙](https://weedshaker.github.io/InteractiveBreathing/index.html)
 
 Maybe TODO's:
+- Service Worker Push Notification Bubble
+- Exchange Result times between devices
 - Add Retention Time background sounds
 
 *Interactive Breathing is released under GPL-3.0 License . Copyright (c) the Universe.*
