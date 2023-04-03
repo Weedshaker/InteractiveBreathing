@@ -144,8 +144,8 @@ export default class BreathingBubble extends Shadow() {
         "title"
         "instruction-one"
         "bubble"
-        "instruction-two"
-        "settings";
+        "settings"
+        "instruction-two";
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, minmax(1em, auto)) 1fr repeat(2, minmax(1em, auto));
         height: 100vh;
@@ -196,7 +196,7 @@ export default class BreathingBubble extends Shadow() {
         color: coral;
         transition: color 0.3s ease-out;
         cursor: pointer;
-        padding: 0 0 3em 3em;
+        padding: 0 0 2.5em 3em;
         position: absolute;
         right: 0;
         top: 0;
@@ -270,7 +270,7 @@ export default class BreathingBubble extends Shadow() {
         transition-property: transform, border-width;
         transition-timing-function: ease;
         user-select: none;
-        width: min(70vw, 70vh);
+        width: min(75vw, 75vh);
       }
       :host > .bubble.animate {
         animation: bubble ${this.animationDuration}ms ease-in-out var(--animation-delay) infinite;

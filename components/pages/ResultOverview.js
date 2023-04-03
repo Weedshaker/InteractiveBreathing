@@ -170,7 +170,7 @@ export default class ResultOverview extends Shadow() {
         color: coral;
         transition: color 0.3s ease-out;
         cursor: pointer;
-        padding: 0 0 3em 3em;
+        padding: 0 0 2.5em 3em;
         position: absolute;
         right: 0;
         top: 0;
@@ -230,7 +230,7 @@ export default class ResultOverview extends Shadow() {
             <div class=end>Start Over [ctrl]</div>
           </div>
           <button class=undo>Undo</button>
-          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.13</a></div>
+          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.14</a></div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
         this.undo.hidden = true

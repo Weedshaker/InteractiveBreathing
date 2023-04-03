@@ -118,7 +118,7 @@ export default class FurtherInstructions extends Shadow() {
         color: coral;
         transition: color 0.3s ease-out;
         cursor: pointer;
-        padding: 0 0 3em 3em;
+        padding: 0 0 2.5em 3em;
         position: absolute;
         right: 0;
         top: 0;
