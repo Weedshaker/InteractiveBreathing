@@ -6,7 +6,7 @@
 class MasterServiceWorker {
   constructor () {
     this.name = 'ServiceWorker'
-    this.version = 'v2'
+    this.version = 'v4'
     this.precache = [
       './',
       './index.html',
@@ -14,11 +14,16 @@ class MasterServiceWorker {
       './favicon.ico',
       './components/controllers/LocalStorage.js',
       './components/pages/BreathingBubble.js',
+      './components/pages/FurtherInstructions.js',
+      './components/pages/FurtherInstructionsIframe.js',
       './components/pages/RecoveryBreath.js',
       './components/pages/ResultOverview.js',
       './components/pages/RetentionTime.js',
       './event-driven-web-components-prototypes/src/Shadow.js',
+      './event-driven-web-components-prototypes/src/WakeLock.js',
+      './event-driven-web-components-prototypes/src/controllers/WakeLock.js',
       './event-driven-web-components-router/src/Router.js',
+      './img/Surya-Namaskar.jpg',
       './sound/breath.mp3',
       './sound/finishing.mp3',
       './sound/littleGong.mp3',

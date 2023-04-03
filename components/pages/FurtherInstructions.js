@@ -63,6 +63,7 @@ export default class FurtherInstructions extends Shadow() {
   renderCSS () {
     this.css = /* css */ `
       :host {
+        overflow-x: auto;
         --border-width: min(10vw, 15rem);
         --font-size-0: min(min(33vw, 16vh), 10em);
         --font-size-100: min(min(65vw, 33vh), 20em);
@@ -136,6 +137,9 @@ export default class FurtherInstructions extends Shadow() {
         font-size: 1.5rem;
         font-style: italic;
       }
+      :host > .instruction-one img {
+        max-width: 100%;
+      }
       :host > .title > .gh-button {
         position: absolute;
         left: 0;
@@ -175,7 +179,7 @@ export default class FurtherInstructions extends Shadow() {
       </div>
       <div class=instruction-one>
         <ul>
-          <li><b>breathing:</b> Breath 30 times... relax, follow your breath.<br>(Breathing In: Your breath starts at your feet, lower belly or Muladhara [VAM] and flows up)<br>(Breathing Out: Your breath starts at your head, Ajna [OM] or Sahasrara and flows down)</li>
+          <li><b>breathing:</b> Breath 30 times... relax, follow your breath.<br>(Breathing In: Your breath starts at your feet, lower belly or Muladhara [VAM] and flows up) Breath in fully, fill your belly, chest and throat.<br>(Breathing Out: Your breath starts at your head, Ajna [OM] or Sahasrara and flows down)</li>
           <li><b>retention:</b> Let go and hold your breath as long as possible or comfortable. Focus on your heartbeat and feel the sensations.</li>
           <li><b>recovery:</b>Take a deep breath in and hold an other 15s.</li>
         </ul>
@@ -192,6 +196,11 @@ export default class FurtherInstructions extends Shadow() {
         </a>
         <br>
         <a href=#/instructions-iframe><h3>A path with heart : a guide through the perils and promises of spiritual life : Page 53 : DEVELOPING A HEALING ATTENTION describes this very well...</h3></a>
+        <br>
+        <a href=https://archive.org/details/in.ernet.dli.2015.489100/page/1/mode/2up target=_blank>
+          <h3>Surya Namaskar is a good preparation</h3>
+          <img src="./img/Surya-Namaskar.jpg" />
+        </a>
       </div>
     `
   }
