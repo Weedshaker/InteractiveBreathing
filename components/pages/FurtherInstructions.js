@@ -179,9 +179,9 @@ export default class FurtherInstructions extends Shadow() {
       </div>
       <div class=instruction-one>
         <ul>
-          <li><b>breathing:</b> Breath 30 times... relax, follow your breath.<br>(Breathing In: Your breath starts at your feet, lower belly or Muladhara [VAM] and flows up) Breath in fully, fill your belly, chest and throat.<br>(Breathing Out: Your breath starts at your head, Ajna [OM] or Sahasrara and flows down)</li>
+          <li><b>breathing:</b> Breath 30 times... relax, follow your breath.<br>(Breathing In: Your breath starts at your feet, lower belly or Muladhara [VAM] and flows up. Breath in fully, fill your belly, chest and throat.)<br>(Breathing Out: Your breath starts at your head, Ajna [OM] or Sahasrara and flows down. Don't breath out completely.)</li>
           <li><b>retention:</b> Let go and hold your breath as long as possible or comfortable. Focus on your heartbeat and feel the sensations.</li>
-          <li><b>recovery:</b>Take a deep breath in and hold an other 15s.</li>
+          <li><b>recovery:</b> Take a deep breath in and hold an other 15s.</li>
         </ul>
         <br>
         <ul class=add>
