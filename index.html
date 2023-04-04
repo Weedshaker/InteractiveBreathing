@@ -90,7 +90,16 @@
     self.Environment = {
       mobileBreakpoint: '600px'
     }
-    navigator.serviceWorker.register('MasterServiceWorker.js', { scope: './' }).then(registration => registration.update()).catch(error => console.error(error))
+    // Service Worker
+    navigator.serviceWorker.register('MasterServiceWorker.js', { scope: './' }).then(registration => {
+      Notification.requestPermission(result => {
+        if (result === "granted") {
+          registration.active.postMessage('visible')
+          document.addEventListener('visibilitychange', event => registration.active.postMessage(document.visibilityState))
+        }
+      })
+      registration.update()
+    }).catch(error => console.error(error))
     // iphone fix, which would always keep other sounds locked, if not unlocked through user interaction
     // here grab first user interaction and unlock all audio elements by playing them, later make sure to only use already unlocked elements directly in document body
     document.body.addEventListener('click', event => {

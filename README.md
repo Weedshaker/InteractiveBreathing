@@ -8,7 +8,7 @@
 [👆 Click and start breathing Bro! 😎🤙](https://weedshaker.github.io/InteractiveBreathing/index.html)
 
 Maybe TODO's:
-- Service Worker Push Notification Bubble
+- Service Worker Notification https://developer.mozilla.org/en-US/docs/Web/API/NotificationEvent/action
 - Exchange Result times between devices
 - Add Retention Time background sounds
 

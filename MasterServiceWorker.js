@@ -6,7 +6,7 @@
 class MasterServiceWorker {
   constructor () {
     this.name = 'ServiceWorker'
-    this.version = 'v4'
+    this.version = 'v5'
     this.precache = [
       './',
       './index.html',
@@ -37,6 +37,7 @@ class MasterServiceWorker {
     this.addInstallEventListener()
     this.addActivateEventListener()
     this.addFetchEventListener()
+    this.addMessageChannelEventListener()
   }
 
   // onInstall init cache
@@ -86,6 +87,22 @@ class MasterServiceWorker {
     )
     )
   }
+
+  addMessageChannelEventListener() {
+    // Notify 24h after last document.visibilityState === 'visible'
+		self.addEventListener('message', event => {
+      if (event.data !== 'visible') return
+      clearTimeout(this.messageTimeoutId)
+      this.messageTimeoutId = setTimeout(() => {
+        self.registration.showNotification('Start breathing!', {
+          body: 'It has been more than 24 hours since you were doing the essential breathing technique...',
+          icon: `${location.origin}/img/android-icon-192x192.png`,
+          badge: `${location.origin}/img/android-icon-96x96.png`,
+          lang: 'en-US'
+        })
+      }, 1000 * 60 * 60 * 24)
+		})
+	}
 
   async getCache (event) {
     return caches.match(event.request)
