@@ -98,7 +98,8 @@ class MasterServiceWorker {
           body: 'It has been more than 24 hours since you were doing the essential breathing technique...',
           icon: `${location.origin}/img/android-icon-192x192.png`,
           badge: `${location.origin}/img/android-icon-96x96.png`,
-          lang: 'en-US'
+          lang: 'en-US',
+          requireInteraction: true
         })
       }, 1000 * 60 * 60 * 24)
 		})
