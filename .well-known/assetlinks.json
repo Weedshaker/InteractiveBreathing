@@ -1,8 +1,0 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "io.github.weedshaker.twa",
-        "sha256_cert_fingerprints": ["F8:03:65:5E:12:58:19:DE:98:C5:85:FD:90:D1:F6:70:85:5C:70:E6:7C:C1:E5:2F:B7:06:6A:16:CE:15:FF:B2"]
-      }
-    }]
