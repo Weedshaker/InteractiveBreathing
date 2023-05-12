@@ -197,9 +197,22 @@ export default class ResultOverview extends Shadow() {
       :host > .results > table th {
         text-decoration: underline;
       }
-      :host > .results > a {
+      :host > .results > a, :host > div > a {
         color: var(--color);
         text-decoration: none;
+      }
+      :host a > span {
+        display: inline-block;
+        transition: transform .3s ease;
+      }
+      :host a:hover > span:first-of-type {
+        transform: translate(0.4em, -0.1em) rotate(20deg);
+      }
+      :host a:hover > span:last-of-type {
+        transform: translate(-0.4em, -0.1em) rotate(-20deg);
+      }
+      :host .app {
+        text-decoration: underline;
       }
     `
   }
@@ -230,7 +243,8 @@ export default class ResultOverview extends Shadow() {
             <div class=end>Start Over [ctrl]</div>
           </div>
           <button class=undo>Undo</button>
-          <div class=results>${this.renderTable(times)}<hr><a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.16</a></div>
+          <div class=results>${this.renderTable(times)}</div>
+          <div><hr><a class=app href="https://play.google.com/store/apps/details?id=io.github.weedshaker.twa&rdid=io.github.weedshaker.twa" target="_blank"><span>👉</span>&nbsp;Please support my work by buying the app&nbsp;<span>👈</span></a> | <a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.16</a></div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
         this.undo.hidden = true
