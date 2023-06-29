@@ -82,7 +82,7 @@ export default class ResultOverview extends Shadow() {
       this.addEventListener('click', this.removeClickListener)
       this.undo.addEventListener('click', this.undoClickListener)
       this.sound.addEventListener('ended', this.endedListener, { once: true })
-      this.sound.volume = 0.5
+      this.sound.volume = 0.8
       this.startSound()
     })
     sessionStorage.removeItem('round')
