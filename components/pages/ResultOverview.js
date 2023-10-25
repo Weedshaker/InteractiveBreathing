@@ -244,7 +244,7 @@ export default class ResultOverview extends Shadow() {
           </div>
           <button class=undo>Undo</button>
           <div class=results>${this.renderTable(times)}</div>
-          <div><hr><a class=app href="https://play.google.com/store/apps/details?id=io.github.weedshaker.twa&rdid=io.github.weedshaker.twa" target="_blank"><span>👉</span>&nbsp;Please support my work by buying the app&nbsp;<span>👈</span></a> | <a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.16</a></div>
+          <div><hr><a class=app href="https://play.google.com/store/apps/details?id=io.github.weedshaker.twa&rdid=io.github.weedshaker.twa" target="_blank"><span>👉</span>&nbsp;Please support my work by buying the app&nbsp;<span>👈</span></a> | <a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.17</a></div>
           <audio class=sound src="./sound/finishing.mp3"></audio>
         `
         this.undo.hidden = true

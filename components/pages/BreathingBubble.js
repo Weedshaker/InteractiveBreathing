@@ -277,6 +277,7 @@ export default class BreathingBubble extends Shadow() {
         border-width: var(--border-width);
         font-size: var(--font-size-0);
         transform: scale(0.01);
+        will-change: border-width, font-size, transform;
       }
       :host > .bubble.animate ~ .instruction-two.init {
         display: none;
@@ -435,6 +436,7 @@ export default class BreathingBubble extends Shadow() {
     this.style.textContent = /* CSS */`
       :host > .bubble.animate {
         animation: bubble ${this._animationDuration}ms ease-in-out var(--animation-delay) infinite;
+        will-change: border-width, font-size, transform;
       }
     `
     this.sound.pause()
