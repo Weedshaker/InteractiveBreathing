@@ -26,6 +26,7 @@ class MasterServiceWorker {
       './img/Surya-Namaskar.jpg',
       './sound/breath.mp3',
       './sound/finishing.mp3',
+      './sound/TreeofLifeBasicTrack.mp3',
       './sound/littleGong.mp3',
       './sound/longGong.mp3'
     ]
