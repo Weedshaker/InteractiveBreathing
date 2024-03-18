@@ -199,7 +199,7 @@ export default class ResultOverview extends Shadow() {
       }
       :host > .results > a, :host > div > a {
         color: var(--color);
-        text-decoration: none;
+        text-decoration: underline;
       }
       :host a > span {
         display: inline-block;
@@ -210,9 +210,6 @@ export default class ResultOverview extends Shadow() {
       }
       :host a:hover > span:last-of-type {
         transform: translate(-0.4em, -0.1em) rotate(-20deg);
-      }
-      :host .app {
-        text-decoration: underline;
       }
     `
   }
@@ -244,7 +241,7 @@ export default class ResultOverview extends Shadow() {
           </div>
           <button class=undo>Undo</button>
           <div class=results>${this.renderTable(times)}</div>
-          <div><hr><a class=app href="https://play.google.com/store/apps/details?id=io.github.weedshaker.twa&rdid=io.github.weedshaker.twa" target="_blank"><span>👉</span>&nbsp;support this project by buying the app&nbsp;<span>👈</span></a> | <a href="https://tomkenyon.com/music-sound-healing" target="_blank">Music Sound Healing Source</a> | <a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.18</a></div>
+          <div><hr><a class=app href="https://play.google.com/store/apps/details?id=io.github.weedshaker.twa&rdid=io.github.weedshaker.twa" target="_blank"><span>👉</span>&nbsp;support this project by buying the app&nbsp;<span>👈</span></a> | <a href="https://www.tomkenyon.com" target="_blank">Tom Kenyon - Flower of Life/Tree of Life Sound Meditation</a> | <a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.19</a></div>
           <!--<audio class=sound src="./sound/finishing.mp3"></audio>-->
           <audio class=sound src="./sound/TreeofLifeBasicTrack.mp3"></audio>
         `
