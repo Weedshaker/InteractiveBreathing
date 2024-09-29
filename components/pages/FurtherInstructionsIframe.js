@@ -40,7 +40,7 @@ export default class FurtherInstructionsIframe extends FurtherInstructions {
     this.html = /* html */`
       <div class=title>
         <br>
-        <div>Kornfield, Jack : A path with heart : a guide through the perils and promises of spiritual life : Page 53 : DEVELOPING A HEALING ATTENTION describes this very well...</div>
+        <div><a href="https://archive.org/details/pathwithheartgui0000korn/page/53/mode/1up" target="_blank">Kornfield, Jack : A path with heart : </a>a guide through the perils and promises of spiritual life : Page 53 : DEVELOPING A HEALING ATTENTION describes this very well...</div>
         <div class=end>Start Breathing [ctrl]</div>
       </div>
       <div class=instruction-one>

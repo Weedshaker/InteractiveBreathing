@@ -180,12 +180,13 @@ export default class FurtherInstructions extends Shadow() {
       <div class=instruction-one>
         <ul>
           <li><b>breathing:</b> Breath 30 times... relax, follow your breath.<br>(Breathing In: Your breath starts at your feet, lower belly or Muladhara [VAM] and flows up. Breath in fully, fill your belly, chest and throat.)<br>(Breathing Out: Your breath starts at your head, Ajna [OM] or Sahasrara and flows down. Don't breath out completely.)</li>
-          <li><b>retention:</b> Let go and hold your breath as long as possible or comfortable. Focus on your heartbeat and feel the sensations.</li>
+          <li><b>special:</b> take one more breath (31st) but this time very slowly and follow the energy from bottom to the top of your head. Fill all from your pelvic belly, belly, chest, throat up into your head with air. Hold IT! Tighten your muscles from Muladhara [VAM] and harness all your Chakras up to Ajna [OM], keep them tense, focus the pressure to your head and slowly let go the air and with it the tension...</li>
+          <li><b>retention:</b> Letting go and hold your breath as long as possible or comfortable. Focus on your heartbeat and feel the sensations.</li>
           <li><b>recovery:</b> Take a deep breath in and hold an other 15s.</li>
         </ul>
         <br>
         <ul class=add>
-          <li>Repeat the three steps above at least three times.</li>
+          <li>Repeat the four steps above at least three times.</li>
           <li>Meditate! See the colors, shapes and hear the sounds of the universe! Let go your feeling!</li>
           <li>Bring this level of awareness and relaxation into your daily life and contemplate during your daily activity by using your breath as an anchor!</li>
           <li>Recommendation: After four rounds the app goes to the result page, automatically. There, listen to the music and meditate until it stops playing. Don't think during that time, it is all irrelevant! Just feel! Focus on your feelings and analyze them as <a href="https://www.amazon.com/Letting-David-Hawkins-M-D-Ph-D/dp/1401945015" target="_blank">David R. Hawkings</a> would explain.</li>
