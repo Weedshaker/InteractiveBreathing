@@ -241,7 +241,7 @@ export default class ResultOverview extends Shadow() {
           </div>
           <button class=undo>Undo</button>
           <div class=results>${this.renderTable(times)}</div>
-          <div><hr><a class=app href="https://play.google.com/store/apps/details?id=io.github.weedshaker.twa&rdid=io.github.weedshaker.twa" target="_blank"><span>👉</span>&nbsp;support this project by buying the app&nbsp;<span>👈</span></a> | <a href="https://www.tomkenyon.com" target="_blank">Tom Kenyon - Flower of Life/Tree of Life Sound Meditation</a> | <a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.20</a></div>
+          <div><hr><a class=app href="https://play.google.com/store/apps/details?id=io.github.weedshaker.twa&rdid=io.github.weedshaker.twa" target="_blank"><span>👉</span>&nbsp;support this project by buying the app&nbsp;<span>👈</span></a> | <a href="https://www.tomkenyon.com" target="_blank">Tom Kenyon - Flower of Life/Tree of Life Sound Meditation</a> | <a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.21</a></div>
           <!--<audio class=sound src="./sound/finishing.mp3"></audio>-->
           <audio class=sound src="./sound/TreeofLifeBasicTrack.mp3"></audio>
         `

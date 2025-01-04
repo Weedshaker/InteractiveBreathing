@@ -6,7 +6,7 @@
 class MasterServiceWorker {
   constructor () {
     this.name = 'ServiceWorker'
-    this.version = 'v5'
+    this.version = 'v6'
     this.precache = [
       './',
       './index.html',
@@ -14,6 +14,14 @@ class MasterServiceWorker {
       './favicon.ico',
       './components/controllers/LocalStorage.js',
       './components/pages/BreathingBubble.js',
+      './components/dialogs/Dialog.js',
+      './components/dialogs/default-/default-.css',
+      './components/dialogs/top-slide-in-/top-slide-in-.css',
+      './components/dialogs/left-slide-in-/left-slide-in-.css',
+      './components/dialogs/left-slide-in-wide-/left-slide-in-wide-.css',
+      './components/dialogs/left-slide-in-without-background-/left-slide-in-without-background-.css',
+      './components/dialogs/left-slide-in-checkout-/left-slide-in-checkout-.css',
+      './components/dialogs/Timer.js',
       './components/pages/FurtherInstructions.js',
       './components/pages/FurtherInstructionsIframe.js',
       './components/pages/RecoveryBreath.js',
