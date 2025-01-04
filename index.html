@@ -104,14 +104,33 @@
     }).catch(error => console.error(error))
     // iphone fix, which would always keep other sounds locked, if not unlocked through user interaction
     // here grab first user interaction and unlock all audio elements by playing them, later make sure to only use already unlocked elements directly in document body
-    document.body.addEventListener('click', event => {
-      Array.from(document.querySelectorAll('audio')).forEach(audio => {
+    let unlockSounds = event => {
+      unlockSounds = () => {}
+      Promise.all(Array.from(document.querySelectorAll('audio')).map(audio => {
+        const {promise, resolve, reject} = Promise.withResolvers()
         if (audio.paused) {
+          const timeout = setTimeout(() => reject(), 50)
+          audio.addEventListener('play', event => {
+            clearTimeout(timeout)
+            resolve()
+          })
           audio.play()
           audio.pause()
+        } else {
+          resolve()
         }
+        return promise
+      })).then(() => {
+        document.body.setAttribute('sounds-unlocked', '')
+        document.body.dispatchEvent(new CustomEvent('sounds-unlocked', {
+          bubbles: true,
+          cancelable: true,
+          composed: true
+        }))
       })
-    }, { once: true })
+    }
+    document.body.addEventListener('click', unlockSounds, { once: true })
+    document.body.addEventListener('timer-show', unlockSounds, { once: true })
   </script>
   <style>
     :root {

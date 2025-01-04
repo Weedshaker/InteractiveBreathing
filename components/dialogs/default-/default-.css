@@ -1,0 +1,51 @@
+/* https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog */
+/*   Open state of the dialog  */
+:host > dialog[open] {
+    opacity: 1;
+    transform: scaleY(1);
+}
+/*   Closed state of the dialog   */
+:host > dialog {
+    opacity: 0;
+    transform: scaleY(0);
+    transition:
+        opacity var(--dialog-default-transition-duration, var(--dialog-transition-duration, 0.3s)) ease-out,
+        transform var(--dialog-default-transition-duration, var(--dialog-transition-duration, 0.3s)) ease-out,
+        overlay var(--dialog-default-transition-duration, var(--dialog-transition-duration, 0.3s)) ease-out allow-discrete,
+        display var(--dialog-default-transition-duration, var(--dialog-transition-duration, 0.3s)) ease-out allow-discrete;
+    /* Equivalent to
+    transition: all var(--dialog-default-transition-duration, var(--dialog-transition-duration, 0.3s)) allow-discrete; */
+}
+/*   Before-open state  */
+/* Needs to be after the previous dialog[open] rule to take effect,
+    as the specificity is the same */
+@starting-style {
+    :host > dialog[open] {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+}
+/* Transition the :backdrop when the dialog modal is promoted to the top layer */
+:host > dialog::backdrop {
+    background-color: var(--dialog-default-backdrop-background-color, var(--dialog-background-color, rgb(0 0 0 / 0)));
+    backdrop-filter: var(--dialog-default-backdrop-backdrop-filter, var(--dialog-backdrop-filter, none));
+    transition:
+        display var(--dialog-default-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s)) allow-discrete,
+        overlay var(--dialog-default-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s)) allow-discrete,
+        background-color var(--dialog-default-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s)),
+        backdrop-filter var(--dialog-default-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s));
+    /* Equivalent to
+    transition: all 0.3s allow-discrete; */
+}
+:host > dialog[open]::backdrop {
+    background-color: var(--dialog-default-backdrop-background-color-open, var(--dialog-background-color-open, var(--dialog-default-backdrop-background-color, var(--dialog-background-color, rgb(0 0 0 / 0.5)))));
+    backdrop-filter: var(--dialog-default-backdrop-backdrop-filter-open, var(--dialog-backdrop-filter-open, var(--dialog-default-backdrop-backdrop-filter, var(--dialog-backdrop-filter, none))));
+}
+/* This starting-style rule cannot be nested inside the above selector
+because the nesting selector cannot represent pseudo-elements. */
+@starting-style {
+    :host > dialog[open]::backdrop {
+      background-color: var(--dialog-default-backdrop-background-color, var(--dialog-background-color, rgb(0 0 0 / 0)));
+      backdrop-filter: var(--dialog-default-backdrop-backdrop-filter, var(--dialog-backdrop-filter, none));
+    }
+}

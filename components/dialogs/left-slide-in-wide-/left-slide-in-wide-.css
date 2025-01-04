@@ -1,0 +1,206 @@
+:host>dialog[open] {
+  /* open */
+  opacity: 1;
+  transform: translateX(0);
+}
+
+:host>dialog {
+  /* close */
+  border: 0 none;
+  margin: 0;
+  opacity: 1;
+  position: fixed;
+  transform: translateX(-100%);
+  transition: all 0.3s allow-discrete;
+  padding: var(--dialog-left-slide-in-wide-padding-custom, 0);
+  height: 100% !important;
+  max-height: 100%;
+  width: 100%;
+  max-width: var(--dialog-left-slide-in-wide-max-width-custom, min(100%, 1120px));
+  z-index: var(--dialog-left-slide-in-wide-z-index-custom, 9999);
+  display: flex;
+  gap: var(--dialog-left-slide-in-wide-gap-custom, normal);
+  justify-content: var(--dialog-left-slide-in-wide-justify-content-custom, normal);
+  align-items: var(--dialog-left-slide-in-wide-align-items-custom, normal);
+  flex-direction: var(--dialog-left-slide-in-wide-flex-direction-custom, column);
+  top: 0;
+}
+
+:host>dialog.closed {
+  /* close */
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+@starting-style {
+
+  /* before */
+  :host>dialog[open] {
+    opacity: 1;
+    transform: translateX(-100%);
+  }
+}
+
+/* Transition the :backdrop when the dialog modal is promoted to the top layer */
+:host > dialog::backdrop {
+  background-color: var(--dialog-left-slide-in-wide-backdrop-background-color, var(--dialog-background-color, rgb(0 0 0 / 0)));
+  backdrop-filter: var(--dialog-left-slide-in-wide-backdrop-backdrop-filter, var(--dialog-backdrop-filter, none));
+  transition:
+      display var(--dialog-left-slide-in-wide-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s)) allow-discrete,
+      overlay var(--dialog-left-slide-in-wide-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s)) allow-discrete,
+      background-color var(--dialog-left-slide-in-wide-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s)),
+      backdrop-filter var(--dialog-left-slide-in-wide-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s));
+  /* Equivalent to
+  transition: all 0.3s allow-discrete; */
+}
+:host > dialog[open]::backdrop {
+  background-color: var(--dialog-left-slide-in-wide-backdrop-background-color-open, var(--dialog-background-color-open, var(--dialog-left-slide-in-wide-backdrop-background-color, var(--dialog-background-color, rgb(0 0 0 / 0.5)))));
+  backdrop-filter: var(--dialog-left-slide-in-wide-backdrop-backdrop-filter-open, var(--dialog-backdrop-filter-open, var(--dialog-left-slide-in-wide-backdrop-backdrop-filter, var(--dialog-backdrop-filter, none))));
+}
+/* This starting-style rule cannot be nested inside the above selector
+because the nesting selector cannot represent pseudo-elements. */
+@starting-style {
+  :host > dialog[open]::backdrop {
+    background-color: var(--dialog-left-slide-in-wide-backdrop-background-color, var(--dialog-background-color, rgb(0 0 0 / 0)));
+    backdrop-filter: var(--dialog-left-slide-in-wide-backdrop-backdrop-filter, var(--dialog-backdrop-filter, none));
+  }
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: calc(24rem/18);
+}
+
+:host .dialog-header {
+  background-color: var(--color-white, #fff);
+  border-bottom: 1px solid var(--color-gray-300, rgba(224, 224, 224, 1));
+  align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+:host .dialog-header>* {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  margin: 0;
+}
+
+:host .dialog-header>h3 {
+  justify-content: center;
+  flex: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host .dialog-header>#close {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: var(--close-height, 2.25em);
+  justify-content: flex-end;
+  margin-bottom: 0;
+  position: relative;
+  right: 0;
+  width: var(--close-width, var(--close-height, 2.25em));
+}
+
+:host .dialog-header #close a-icon-mdx[icon-name="Plus"]::part(svg) {
+  transform: rotate(45deg);
+}
+
+:host .dialog-content {
+  background-color: var(--color-white, #fff);
+  align-items: start;
+  flex: 1;
+  flex-direction: column;
+  overflow: auto;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  padding: var(--mdx-sys-spacing-flex-xs) var(--mdx-sys-spacing-flex-xs) var(--mdx-sys-spacing-flex-xs);
+}
+
+/* iOS specific styles */
+@media only screen and (min-device-width: 320px) and (max-device-width: 812px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2),
+       only screen and (min-device-width: 320px) and (max-device-width: 812px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+    :host .dialog-content {
+    flex: 1;
+  }
+}
+
+:host .dialog-content .sub-content {
+  align-items: start;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-bottom: 5rem;
+  width: 100%;
+}
+
+:host .dialog-content>*,
+:host .dialog-content .sub-content>* {
+  margin: 0;
+  width: 100%;
+}
+
+:host .dialog-footer {
+  background-color: var(--color-white, #fff);
+  border-top: 1px solid var(--color-gray-300, rgba(224, 224, 224, 1));
+  align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+}
+
+:host .reset-link {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+:host .reset-link a-icon-mdx {
+  color: var(--mdx-comp-link-color-default);
+  display: inline-block;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  position: relative;
+  top: 0.2rem;
+}
+
+:host .success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:host .success a-icon-mdx {
+  color: var(--mdx-base-color-klubschule-green-600);
+}
+
+.success p {
+  color: var(--mdx-sys-color-neutral–default);
+  font: var(--mdx-sys-font-flex-body2)
+}
+
+@media only screen and (max-width: _max-width_) {
+  :host .container #close {
+    position: relative;
+    right: 0;
+  }
+
+  :host .dialog-content .sub-content {
+    padding: 0;
+    margin-bottom: 9.375rem;
+  }
+}

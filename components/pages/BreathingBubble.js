@@ -13,8 +13,8 @@ import { Shadow } from '../../event-driven-web-components-prototypes/src/Shadow.
  * @type {CustomElementConstructor}
  */
 export default class BreathingBubble extends Shadow() {
-  constructor (...args) {
-    super(...args)
+  constructor (options = {}, ...args) {
+    super({ importMetaUrl: import.meta.url, ...options }, ...args)
     this.animationDelay = 500 // this.counter initial string "GO" disappear animation
     this.animationDurationOne = 5025 // one breath in/out duration
     this.counterMessage = 'GO'
@@ -51,6 +51,7 @@ export default class BreathingBubble extends Shadow() {
       this.bubble.classList.add('animate')
       if (!document.fullscreenElement) document.documentElement.requestFullscreen()
       if (this.furtherInstructions) this.furtherInstructions.classList.add('hidden')
+      if (this.timer) this.timer.classList.add('hidden')
       this.dispatchEvent(new CustomEvent('request-wake-lock', {
         bubbles: true,
         cancelable: true,
@@ -64,6 +65,7 @@ export default class BreathingBubble extends Shadow() {
       if (this.counter > this.counterMax) this.nextPage()
     }
     this.beforeunloadListener = event => (this.round = 0)
+    this.timerEventListener = event => this.clickListenerOnce()
   }
 
   connectedCallback (newRound = true) {
@@ -79,6 +81,7 @@ export default class BreathingBubble extends Shadow() {
 
     document.addEventListener('keydown', this.keydownListener)
     this.addEventListener('dblclick', this.dblclickListener)
+    this.addEventListener('timer', this.timerEventListener)
     this.end.addEventListener('click', this.clickListener)
     if (this.bgOn) this.bgOn.addEventListener('click', this.bgOnClickListener)
     if (this.bgOff) this.bgOff.addEventListener('click', this.bgOffClickListener)
@@ -96,8 +99,10 @@ export default class BreathingBubble extends Shadow() {
     super.disconnectedCallback()
     this.bubble.classList.remove('animate')
     if (this.furtherInstructions) this.furtherInstructions.classList.remove('hidden')
+    if (this.timer) this.timer.classList.remove('hidden')
     document.removeEventListener('keydown', this.keydownListener)
     this.removeEventListener('dblclick', this.dblclickListener)
+    this.removeEventListener('timer', this.timerEventListener)
     this.end.removeEventListener('click', this.clickListener)
     if (this.bgOn) this.bgOn.removeEventListener('click', this.bgOnClickListener)
     if (this.bgOff) this.bgOff.removeEventListener('click', this.bgOffClickListener)
@@ -192,7 +197,7 @@ export default class BreathingBubble extends Shadow() {
         grid-area: title;
         position: relative;
       }
-      :host > .title > .end {
+      :host > .title > .end, :host > .title > .timer {
         color: coral;
         transition: color 0.3s ease-out;
         cursor: pointer;
@@ -200,6 +205,11 @@ export default class BreathingBubble extends Shadow() {
         position: absolute;
         right: 0;
         top: 0;
+      }
+      :host > .title > .timer {
+        left: 0;
+        right: auto;
+        padding: 0 3em 2.5em 0;
       }
       :host > .settings {
         display: flex;
@@ -339,8 +349,9 @@ export default class BreathingBubble extends Shadow() {
     this.html = ''
     this.html = /* html */`
       <div class=title>
-      <div class=round-counter>Round ${this.round}</div>
-      <div class=end>Finish [ctrl]</div>
+        <timer-dialog namespace="dialog-top-slide-in-" class=timer></timer-dialog>
+        <div class=round-counter>Round ${this.round}</div>
+        <div class=end>Finish [ctrl]</div>
       </div>
       <div class=instruction-one>Take 30 deep breaths<br><a class=further-instructions href=#/instructions><span>👉</span> Further Instructions <span>👈</span></a></div>
       <div class=bubble>${this.counter}</div>
@@ -360,6 +371,13 @@ export default class BreathingBubble extends Shadow() {
     this.bgOff.hidden = !!localStorage.getItem('bg-off')
     document.querySelector('.bg').hidden = !!localStorage.getItem('bg-off')
     this.html = this.style
+    return this.fetchModules([
+      {
+        // @ts-ignore
+        path: `${this.importMetaUrl}../dialogs/Timer.js`,
+        name: 'timer-dialog'
+      }
+    ])
   }
 
   nextPage () {
@@ -423,6 +441,10 @@ export default class BreathingBubble extends Shadow() {
 
   get furtherInstructions () {
     return this.root.querySelector('.further-instructions')
+  }
+
+  get timer () {
+    return this.root.querySelector('.timer')
   }
 
   get playbackRate () {

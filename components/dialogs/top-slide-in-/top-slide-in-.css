@@ -1,0 +1,87 @@
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+:host > dialog[open] {
+  /* open */
+  opacity: 1;
+  transform: translateY(0);
+}
+:host > dialog {
+  /* close */
+  border: 0 none;
+  margin: 0;
+  opacity: 1;
+  position: fixed;
+  transform: translateY(-100%);
+  transition: all 0.3s allow-discrete;
+  width: 100%;
+  max-width: 100%;
+  z-index: 99;
+}
+:host > dialog.closed {
+  /* close */
+  opacity: 0;
+  transform: translateY(-100%);
+}
+@starting-style {
+  /* before */
+  :host > dialog[open] {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+}
+/* Transition the :backdrop when the dialog modal is promoted to the top layer */
+:host > dialog::backdrop {
+  background-color: var(--dialog-top-slide-in-backdrop-background-color, var(--dialog-background-color, rgb(0 0 0 / 0)));
+  backdrop-filter: var(--dialog-top-slide-in-backdrop-backdrop-filter, var(--dialog-backdrop-filter, none));
+  transition:
+      display var(--dialog-top-slide-in-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s)) allow-discrete,
+      overlay var(--dialog-top-slide-in-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s)) allow-discrete,
+      background-color var(--dialog-top-slide-in-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s)),
+      backdrop-filter var(--dialog-top-slide-in-backdrop-transition-duration, var(--dialog-transition-duration, 0.3s));
+  /* Equivalent to
+  transition: all 0.3s allow-discrete; */
+}
+:host > dialog[open]::backdrop {
+  background-color: var(--dialog-top-slide-in-backdrop-background-color-open, var(--dialog-background-color-open, var(--dialog-top-slide-in-backdrop-background-color, var(--dialog-background-color, rgb(0 0 0 / 0.5)))));
+  backdrop-filter: var(--dialog-top-slide-in-backdrop-backdrop-filter-open, var(--dialog-backdrop-filter-open, var(--dialog-top-slide-in-backdrop-backdrop-filter, var(--dialog-backdrop-filter, none))));
+}
+/* This starting-style rule cannot be nested inside the above selector
+because the nesting selector cannot represent pseudo-elements. */
+@starting-style {
+  :host > dialog[open]::backdrop {
+    background-color: var(--dialog-top-slide-in-backdrop-background-color, var(--dialog-background-color, rgb(0 0 0 / 0)));
+    backdrop-filter: var(--dialog-top-slide-in-backdrop-backdrop-filter, var(--dialog-backdrop-filter, none));
+  }
+}
+@media only screen and (max-width: _max-width_) {
+  :host .container #close {
+    position: relative;
+    right: 0;
+  }
+}
+.container {
+    align-items: center;
+    display: flex;
+    gap: 1.25rem;
+    max-width: _max-width_;
+    margin: 0 auto;
+}
+.container > :first-child {
+    flex: 1;
+}
+.container #close {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    height: var(--top-slide-in-close-height, var(--close-height, 2.25em));
+    justify-content: center;
+    margin-bottom: 0;
+    position: absolute;
+    right: 1.25em;
+    width: var(--top-slide-in-close-width, var(--close-width, var(--top-slide-in-close-height, var(--close-height, 2.25em))));
+}
+.container #close a-icon-mdx[icon-name="Plus"]::part(svg) {
+    transform: rotate(45deg);
+}

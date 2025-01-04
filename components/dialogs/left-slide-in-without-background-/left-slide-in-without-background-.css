@@ -1,0 +1,220 @@
+:host {
+  /* button margin and padding */
+  --margin: auto 0;
+  --padding: calc(24rem/18);
+}
+
+:host>dialog[open] {
+  /* open */
+  opacity: 1;
+  transform: translateX(0);
+  display: flex;
+}
+
+:host>dialog {
+  /* close */
+  border: 0 none;
+  margin: 0;
+  opacity: 1;
+  position: fixed;
+  transform: translateX(-100%);
+  transition: 0.3s;
+  padding: 0;
+  height: 100% !important;
+  max-height: 100%;
+  width: 100%;
+  max-width: min(100%, 560px);
+  overflow: hidden;
+  z-index: 9999;
+  flex-direction: column;
+  top: 0;
+}
+
+:host>dialog.closed {
+  /* close */
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+@starting-style {
+
+  /* before */
+  :host>dialog[open] {
+    opacity: 1;
+    transform: translateX(-100%);
+  }
+}
+
+:host>dialog::backdrop {
+  background-color: transparent;
+  transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete,
+    background-color 0.3s;
+}
+
+:host>dialog[open]::backdrop {
+  background-color: transparent;
+}
+
+@starting-style {
+  :host>dialog[open]::backdrop {
+    background-color: transparent;
+  }
+}
+
+@media only screen and (max-width: _max-width_) {
+  :host .container #close {
+    position: relative;
+    right: 0;
+  }
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  gap: 1.25rem;
+  max-width: _max-width_;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--padding);
+}
+
+:host .dialog-header {
+  background-color: var(--color-white, #fff);
+  border-bottom: 1px solid var(--color-gray-300, rgba(224, 224, 224, 1));
+  align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  gap: 0;
+}
+
+:host .dialog-header > * {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  margin: 0;
+}
+
+:host .dialog-header > h3 {
+  display: block;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  flex: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host .dialog-header > a-button {
+  height: 100%;
+}
+:host .dialog-header > a-button::part(button) {
+  background-color: var(--color-white, #fff);
+}
+:host .dialog-header > a-button:first-child::part(button) {
+  padding: var(--padding) 0 var(--padding) var(--padding);
+}
+:host .dialog-header > a-button:last-child::part(button) {
+  padding: var(--padding) var(--padding) var(--padding) 0;
+}
+
+:host .dialog-header > #close {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  /* height: var(--close-height, 2.25em); */
+  justify-content: flex-end;
+  margin-bottom: 0;
+  position: relative;
+  right: 0;
+  width: var(--close-width, var(--close-height, 2.25em));
+}
+
+:host .dialog-header #close a-icon-mdx[icon-name="Plus"]::part(svg) {
+  transform: rotate(45deg);
+}
+
+:host .dialog-content {
+  background-color: var(--color-white, #fff);
+  align-items: start;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(32rem/18);
+  overflow: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* iOS specific styles */
+@media only screen and (min-device-width: 320px) and (max-device-width: 812px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2),
+       only screen and (min-device-width: 320px) and (max-device-width: 812px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+    :host .dialog-content {
+    flex: 1;
+  }
+}
+
+:host .dialog-content .sub-level {
+  padding: 0 1.5rem;
+}
+
+:host .dialog-content .sub-level.margin-bottom {
+  margin-bottom: 1.5rem;
+}
+
+:host .dialog-content .sub-level.margin-top-bottom {
+  margin: 1.5rem 0;
+}
+
+:host .dialog-content>* {
+  margin: 0;
+  width: 100%;
+}
+
+:host .dialog-footer {
+  background-color: var(--color-white, #fff);
+  border-top: 1px solid var(--color-gray-300, rgba(224, 224, 224, 1));
+  align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+}
+
+@media screen and (max-width: _max-width_) {
+  :host .dialog-footer {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+  :host .dialog-footer a-button::part(button),
+  :host .dialog-footer ks-a-number-of-offers-button::part(button) {
+    width: 100%;
+  }
+}
+
+:host .reset-link {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+:host .reset-link a-icon-mdx {
+  color: var(--mdx-comp-link-color-default);
+  display: inline-block;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  position: relative;
+  top: 0.2rem;
+}
+
+:host label.headline {
+  color: var(--mdx-sys-color-primary-default);
+  font: var(--mdx-sys-font-fix-label0);
+  display: block;
+  margin-top: calc(40rem/18); 
+  margin-bottom: calc(24rem/18); 
+}
