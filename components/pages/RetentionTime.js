@@ -38,11 +38,13 @@ export default class RetentionTime extends BreathingBubble {
     this.roundCounter.textContent = `Round ${this.round}`
     this.stopWatch()
     this.startSound()
+    this.soundTooLong.volume = 0.3
   }
 
   disconnectedCallback () {
     super.disconnectedCallback()
     clearInterval(this.interval)
+    this.soundTooLong.pause()
   }
 
   /**
@@ -89,6 +91,7 @@ export default class RetentionTime extends BreathingBubble {
       <div class="instruction-two init">Tap twice to go into recovery breath [space]</div>
       <div class=instruction-two></div>
       <audio class=sound src="./sound/littleGong.mp3"></audio>
+      <audio class=sound-too-long src="./sound/TreeofLifeBasicTrack.mp3"></audio>
     `
   }
 
@@ -102,7 +105,17 @@ export default class RetentionTime extends BreathingBubble {
     const intervalNumber = 100
     this.interval = setInterval(() => {
       const pastTime = Date.now() - startTime
-      if (pastTime && (pastTime % 60000) < intervalNumber) this.startSound()
+      const oneMinute = 60000
+      if (pastTime && (pastTime % oneMinute) < intervalNumber) {
+        this.startSound()
+        if (pastTime >= 6 * oneMinute) {
+          this.nextPage()
+        } else if (pastTime >= 5 * oneMinute) {
+          this.soundTooLong.play()
+        }else if (pastTime >= 4 * oneMinute) {
+          this.startSound(this.soundTooLong)
+        }
+      }
       this.bubble.textContent = this.formatTime(pastTime)
     }, intervalNumber)
   }
@@ -116,5 +129,9 @@ export default class RetentionTime extends BreathingBubble {
 
   get sound () {
     return document.querySelector('#littleGong') || this.root.querySelector('.sound')
+  }
+
+  get soundTooLong () {
+    return document.querySelector('#finishing') || this.root.querySelector('.sound-too-long')
   }
 }
