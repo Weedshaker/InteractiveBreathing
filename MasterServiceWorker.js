@@ -6,7 +6,7 @@
 class MasterServiceWorker {
   constructor () {
     this.name = 'ServiceWorker'
-    this.version = 'v6'
+    this.version = 'v7'
     this.precache = [
       './',
       './index.html',
