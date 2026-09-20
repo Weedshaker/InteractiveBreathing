@@ -241,7 +241,7 @@ export default class ResultOverview extends Shadow() {
           </div>
           <button class=undo>Undo</button>
           <div class=results>${this.renderTable(times)}</div>
-          <div><hr><a href="http://tips4ceos.com/" target="_blank">Murli Menon - 500 years old, bonpa singing bowl from Tibet</a> | <a href="https://www.tomkenyon.com" target="_blank">Tom Kenyon - Flower of Life/Tree of Life Sound Meditation</a> | <a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.22</a></div>
+          <div><hr><a href="http://tips4ceos.com/" target="_blank">Murli Menon - 500 years old, bonpa singing bowl from Tibet</a> | <a href="https://www.tomkenyon.com" target="_blank">Tom Kenyon - Flower of Life/Tree of Life Sound Meditation</a> | <a href="https://github.com/Weedshaker/InteractiveBreathing" target="_blank">v. beta 1.0.23</a> | <a href="https://dcn-web.peerweb.site/ipfs/Qmd3zQkcFaph4K64UPBt63UBJJZDNb5CMw3WeoLRHYZU48" target="_blank">alternatively hosted@IPFS</a></div>
           <!--<audio class=sound src="./sound/finishing.mp3"></audio>-->
           <audio class=sound src="./sound/TreeofLifeBasicTrack.mp3"></audio>
         `

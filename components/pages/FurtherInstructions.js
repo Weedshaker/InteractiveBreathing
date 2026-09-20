@@ -193,7 +193,7 @@ export default class FurtherInstructions extends Shadow() {
         </ul>
         <br>
         <a class=wim-hof href=https://www.wimhofmethod.com/breathing-techniques target=_blank>
-          <h3><span>👉</span> Instruction by Wim Hof <span>👈</span></h3>
+          <h3><span>👉</span> Instruction by tummo <span>👈</span></h3>
         </a>
         <br>
         <a href=#/instructions-iframe><h3>A path with heart : a guide through the perils and promises of spiritual life : Page 53 : DEVELOPING A HEALING ATTENTION describes this very well...</h3></a>
